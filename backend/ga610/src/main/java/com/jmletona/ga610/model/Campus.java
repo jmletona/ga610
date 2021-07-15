@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Campus {
 
-    @OneToMany(cascade= CascadeType.ALL)
+    /*@OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="id_campus")
-    private List<Person> personList;
+    private List<Person> personList;*/
 }

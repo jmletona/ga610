@@ -2,7 +2,6 @@ package com.jmletona.ga610.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -40,7 +39,7 @@ public class Person {
     @Column(name ="created")
     private Date created;
 
-    @ManyToOne
+   /* @ManyToOne
     @JoinColumn(name = "id_campus")
-    private Campus campus;
+    private Campus campus;*/
 }
