@@ -17,13 +17,7 @@ public class PhoneController {
     @Autowired
     private PhoneService phoneService;
 
-<<<<<<< HEAD
-    //@Autowired
-    //private PersonService personService;
-
-=======
     @GetMapping
->>>>>>> letona
     public ResponseApi<List<ItemPhone>> getAllPhones(){
         boolean success = false;
         String message = "No Phone found";
@@ -78,13 +72,8 @@ public class PhoneController {
     public Phone createPhone(Phone phone, PhoneDTO phoneDTO){
         phone.setAreaCode(phoneDTO.getAreaCode());
         phone.setNumber(phoneDTO.getNumber());
-<<<<<<< HEAD
-        phone.setType(phoneDTO.getType());
-        //agregar persona
-=======
         phone.setType(phoneDTO.getPhoneType());
         phone.setIdPerson(phoneDTO.getIdPerson());
->>>>>>> letona
         return phoneService.create(phone);
     }
 
@@ -112,23 +101,14 @@ public class PhoneController {
         phone.setIdPhone(phoneDTO.getIdPhone());
         phone.setAreaCode(phoneDTO.getAreaCode());
         phone.setNumber(phoneDTO.getNumber());
-<<<<<<< HEAD
-        phone.setType(phoneDTO.getType());
-        //agregar persona
-=======
         phone.setType(phoneDTO.getPhoneType());
->>>>>>> letona
         return phoneService.update(phone);
     }
 
     @GetMapping("/{id}")
     public ResponseApi<ItemPhone> findById(@PathVariable("id") Integer idPhone){
         boolean success = false;
-<<<<<<< HEAD
-        String message = "No phone found";
-=======
         String message = "No Phone found";
->>>>>>> letona
         ItemPhone itemPhone = new ItemPhone();
         Phone phone = phoneService.findById(idPhone);
         if (phone != null){
