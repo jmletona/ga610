@@ -8,18 +8,14 @@ import com.jmletona.ga610.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/phones")
 public class PhoneController {
-
     @Autowired
     private PhoneService phoneService;
-
 
     @GetMapping
     public ResponseApi<List<ItemPhone>> getAllPhones(){
@@ -49,8 +45,7 @@ public class PhoneController {
         itemPhone.setAreaCode(String.valueOf(phone.getAreaCode()));
         itemPhone.setNumber(String.valueOf(phone.getNumber()));
         itemPhone.setType(phone.getType());
-        itemPhone.setIdPerson(phone.getIdPerson());
-        itemPhone.setUpdated(phone.getUpdated().toString());
+        itemPhone.setPerson(String.valueOf(phone.getIdPerson()));
         return itemPhone;
     }
 
@@ -75,7 +70,6 @@ public class PhoneController {
     }
 
     public Phone createPhone(Phone phone, PhoneDTO phoneDTO){
-        phone.setUpdated(Timestamp.from(Instant.now()));
         phone.setAreaCode(phoneDTO.getAreaCode());
         phone.setNumber(phoneDTO.getNumber());
         phone.setType(phoneDTO.getPhoneType());
@@ -108,7 +102,6 @@ public class PhoneController {
         phone.setAreaCode(phoneDTO.getAreaCode());
         phone.setNumber(phoneDTO.getNumber());
         phone.setType(phoneDTO.getPhoneType());
-
         return phoneService.update(phone);
     }
 
