@@ -61,7 +61,7 @@ public class Person {
     private Campus campus;*/
 =======
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinTable(name="person_service",
     joinColumns = @JoinColumn(name = "id_person"),
     inverseJoinColumns = @JoinColumn(name="id_service"))
@@ -72,7 +72,7 @@ public class Person {
     @JoinColumn(name = "id_campus")
     private Campus campus;
 
-    */
+
 
 
 }
