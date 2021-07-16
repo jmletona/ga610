@@ -39,6 +39,9 @@ public class Person {
     @Column(name ="created")
     private Date created;
 
+    /*@Column(name = "id_campus")
+    private Campus campus;*/
+
    /* @ManyToOne
     @JoinColumn(name = "id_campus")
     private Campus campus;*/

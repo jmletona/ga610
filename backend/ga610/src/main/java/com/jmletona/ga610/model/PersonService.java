@@ -11,12 +11,13 @@ import javax.persistence.Table;
 @Table(name = "PERSON_SERVICE")
 @Data
 public class PersonService {
-
     @Id
+    @Column(name = "id_personService")
+    private Integer id_personService;
+
     @Column(name = "id_person")
     private Integer personId;
 
-    @Id
     @Column(name="id_service")
     private Integer serviceId;
 }
