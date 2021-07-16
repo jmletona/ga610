@@ -1,11 +1,27 @@
 package com.jmletona.ga610.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import lombok.Data;
+
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
+@Entity
+@Table(name = "CAMPUS")
+@Data
 public class Campus {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_campus")
+    private Integer campusId;
+
+    @Column(name ="campus_name")
+    private String name;
+    @Column(name ="country")
+    private String country;
+    @Column(name ="created")
+    private LocalDate createdAt;
 
     /*@OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="id_campus")
