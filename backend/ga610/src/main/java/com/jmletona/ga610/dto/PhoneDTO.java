@@ -11,6 +11,6 @@ public class PhoneDTO {
     private Integer idPhone;
     private Integer areaCode;
     private Integer number;
-    private String type;
-    private Date created;
+    private String phoneType;
+    private Integer idPerson;
 }

@@ -7,27 +7,26 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "PHONE")
+@Table(name = "phone")
 @Getter
 @Setter
 public class Phone {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_phone")
-    private int idPhone;
+    private Integer idPhone;
 
     @Column(name = "area_code")
-    private int areaCode;
+    private Integer areaCode;
 
     @Column(name = "phone_number")
-    private int number;
+    private Integer number;
 
-    @Column(name = "phone_type", columnDefinition = "enum('OFFICE','CELLPHONE','WHATSAPP')")
+    @Column(name = "phone_type", columnDefinition = "enum('OFFICE','CELLPHONE','WHATSAPP', 'LOCALPHONE')")
     private String type;
 
-     /*
-     private Person person;
-      */
+    @Column(name = "id_person")
+    private Integer idPerson;
 
     @Column(name = "created")
     private Date created;

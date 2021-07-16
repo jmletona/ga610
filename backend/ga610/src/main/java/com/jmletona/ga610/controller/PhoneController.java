@@ -17,9 +17,13 @@ public class PhoneController {
     @Autowired
     private PhoneService phoneService;
 
+<<<<<<< HEAD
     //@Autowired
     //private PersonService personService;
 
+=======
+    @GetMapping
+>>>>>>> letona
     public ResponseApi<List<ItemPhone>> getAllPhones(){
         boolean success = false;
         String message = "No Phone found";
@@ -34,17 +38,20 @@ public class PhoneController {
     }
 
     public List<ItemPhone> showAllPhones(List<Phone> phoneList, List<ItemPhone> itemPhoneList){
-        for(Phone phone : phoneList)
-            itemPhoneList.add(showPhone(phone));
+        for(Phone phone : phoneList){
+            ItemPhone itemPhone = new ItemPhone();
+            itemPhone = showPhone(phone, itemPhone);
+            itemPhoneList.add(itemPhone);
+        }
         return itemPhoneList;
     }
 
-    public ItemPhone showPhone(Phone phone){
-        ItemPhone itemPhone = new ItemPhone();
+    public ItemPhone showPhone(Phone phone, ItemPhone itemPhone){
         itemPhone.setIdPhone(phone.getIdPhone());
         itemPhone.setAreaCode(String.valueOf(phone.getAreaCode()));
         itemPhone.setNumber(String.valueOf(phone.getNumber()));
         itemPhone.setType(phone.getType());
+        itemPhone.setPerson(String.valueOf(phone.getIdPerson()));
         return itemPhone;
     }
 
@@ -52,11 +59,12 @@ public class PhoneController {
     public ResponseApi<ItemPhone> create(@RequestBody PhoneDTO phoneDTO){
         boolean success = false;
         String message = "Error";
+        Phone phone = new Phone();
         ItemPhone itemPhone = new ItemPhone();
         try {
-            Phone phone = createPhone(phoneDTO);
+            phone = createPhone(phone, phoneDTO);
             if (phone != null){
-                itemPhone = showPhone(phone);
+                itemPhone = showPhone(phone, itemPhone);
                 success = true;
                 message = "Phone created successfully";
             }
@@ -67,12 +75,16 @@ public class PhoneController {
         return new ResponseApi<>(success, message, itemPhone);
     }
 
-    public Phone createPhone(PhoneDTO phoneDTO){
-        Phone phone = new Phone();
+    public Phone createPhone(Phone phone, PhoneDTO phoneDTO){
         phone.setAreaCode(phoneDTO.getAreaCode());
         phone.setNumber(phoneDTO.getNumber());
+<<<<<<< HEAD
         phone.setType(phoneDTO.getType());
         //agregar persona
+=======
+        phone.setType(phoneDTO.getPhoneType());
+        phone.setIdPerson(phoneDTO.getIdPerson());
+>>>>>>> letona
         return phoneService.create(phone);
     }
 
@@ -80,11 +92,12 @@ public class PhoneController {
     public ResponseApi<ItemPhone> update(@RequestBody PhoneDTO phoneDTO){
         boolean success = false;
         String message = "Error updating phone";
+        Phone phone = new Phone();
         ItemPhone itemPhone = new ItemPhone();
         try {
-            Phone phone = updatePhone(phoneDTO);
+            phone = updatePhone(phone, phoneDTO);
             if (phone != null){
-                itemPhone = showPhone(phone);
+                itemPhone = showPhone(phone, itemPhone);
                 success = true;
                 message = "Phone updated successfully";
             }
@@ -95,25 +108,33 @@ public class PhoneController {
         return new ResponseApi<>(success, message, itemPhone);
     }
 
-    public Phone updatePhone(PhoneDTO phoneDTO){
-        Phone phone = new Phone();
+    public Phone updatePhone(Phone phone, PhoneDTO phoneDTO){
+        phone.setIdPhone(phoneDTO.getIdPhone());
         phone.setAreaCode(phoneDTO.getAreaCode());
         phone.setNumber(phoneDTO.getNumber());
+<<<<<<< HEAD
         phone.setType(phoneDTO.getType());
         //agregar persona
+=======
+        phone.setType(phoneDTO.getPhoneType());
+>>>>>>> letona
         return phoneService.update(phone);
     }
 
     @GetMapping("/{id}")
     public ResponseApi<ItemPhone> findById(@PathVariable("id") Integer idPhone){
         boolean success = false;
+<<<<<<< HEAD
         String message = "No phone found";
+=======
+        String message = "No Phone found";
+>>>>>>> letona
         ItemPhone itemPhone = new ItemPhone();
         Phone phone = phoneService.findById(idPhone);
         if (phone != null){
             success = true;
             message = "Phone found";
-            itemPhone = showPhone(phone);
+            itemPhone = showPhone(phone, itemPhone);
         }
         return new ResponseApi<>(success, message, itemPhone);
     }

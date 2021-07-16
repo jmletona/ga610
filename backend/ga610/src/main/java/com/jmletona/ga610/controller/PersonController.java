@@ -17,9 +17,6 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    //@Autowired
-    //private CampusService campusService;
-
     @GetMapping
     public ResponseApi<List<ItemPerson>> getAllPersons(){
         boolean success = false;
