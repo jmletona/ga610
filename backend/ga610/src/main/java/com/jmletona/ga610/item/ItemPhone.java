@@ -12,4 +12,5 @@ public class ItemPhone implements IItem {
     String type;
     String person;
     String created;
+    Integer idPerson;
 }

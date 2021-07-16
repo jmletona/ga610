@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.Date;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_person")
     private Integer idPerson;
 
@@ -39,10 +40,17 @@ public class Person {
     @Column(name ="created")
     private Date created;
 
-    /*@Column(name = "id_campus")
-    private Campus campus;*/
+    /*@ManyToOne
+    @JoinTable(name="person_service",
+    joinColumns = @JoinColumn(name = "id_person"),
+    inverseJoinColumns = @JoinColumn(name="id_service"))
+    List<Service> services;
 
-   /* @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "id_campus")
-    private Campus campus;*/
+    private Campus campus;
+
+    */
+
+
 }
