@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "CAMPUS_USER")
+@Table(name = "campus_user")
 @Data
 public class CampusUser {
 
@@ -27,10 +27,17 @@ public class CampusUser {
     @Column(name = "user_password")
     private String userPassword;
 
-    @Column(name = "id_role")
-    private Integer roleId;
+    //@Column(name = "id_role")
+    //private Integer roleId;
 
     @Column(name = "created")
     private LocalDate createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "id_role")
+    private UserRole userRole;
+
+    @ManyToOne
+    private Campus campus;
 
 }

@@ -12,9 +12,9 @@ import java.util.Optional;
 @Service
 public class CampusService implements ICampusService {
 
-    @Autowired
-    private ICampusRepository campusRepository;
 
+    private ICampusRepository campusRepository;
+    @Autowired
     public CampusService(ICampusRepository campusRepository) {
         this.campusRepository = campusRepository;
     }
