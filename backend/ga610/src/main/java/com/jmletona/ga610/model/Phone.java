@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "phone")
@@ -28,6 +28,7 @@ public class Phone {
     @Column(name = "id_person")
     private Integer idPerson;
 
-    @Column(name = "created")
-    private Date created;
+    @Column(name = "updated")
+    private Timestamp updated;
 }
+
