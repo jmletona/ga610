@@ -8,7 +8,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name="PERSON")
+@Table(name="person")
 @Getter
 @Setter
 public class Person {
@@ -18,19 +18,19 @@ public class Person {
     @Column(name = "id_person")
     private Integer idPerson;
 
-    @Column(name ="active")
+    @Column(name ="is_active")
     private Boolean active;
 
     @Column(name ="company")
     private String company;
 
-    @Column(name ="description")
+    @Column(name ="person_description")
     private String description;
 
-    @Column(name ="name")
+    @Column(name ="person_name")
     private String name;
 
-    @Column(name ="lastname")
+    @Column(name ="person_lastname")
     private String lastname;
 
     @Column(name ="address")
