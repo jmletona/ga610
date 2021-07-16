@@ -5,10 +5,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
-@Table(name="PERSON")
+@Table(name = "person")
 @Getter
 @Setter
 public class Person {
@@ -17,28 +19,20 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_person")
     private Integer idPerson;
-
-    @Column(name ="active")
+    @Column(name = "active")
     private Boolean active;
-
-    @Column(name ="company")
+    @Column(name = "company")
     private String company;
-
-    @Column(name ="description")
+    @Column(name = "description")
     private String description;
-
-    @Column(name ="name")
+    @Column(name = "name")
     private String name;
-
-    @Column(name ="lastname")
+    @Column(name = "lastname")
     private String lastname;
-
-    @Column(name ="address")
+    @Column(name = "address")
     private String address;
-
-    @Column(name ="created")
+    @Column(name = "created")
     private Date created;
-
     /*@Column(name = "id_campus")
     private Campus campus;*/
 

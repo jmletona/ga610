@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "CAMPUS")
+@Table(name = "campus")
 @Data
 public class Campus {
 
@@ -26,4 +26,9 @@ public class Campus {
     /*@OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="id_campus")
     private List<Person> personList;*/
+    @OneToMany(mappedBy = "campus")
+    private List<CampusUser> users;
+
+    @OneToMany(mappedBy = "campus")
+    private List<Person> People;
 }
