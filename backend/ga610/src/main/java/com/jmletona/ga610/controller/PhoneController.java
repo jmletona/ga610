@@ -17,6 +17,9 @@ public class PhoneController {
     @Autowired
     private PhoneService phoneService;
 
+    //@Autowired
+    //private PersonService personService;
+
     public ResponseApi<List<ItemPhone>> getAllPhones(){
         boolean success = false;
         String message = "No Phone found";
@@ -69,6 +72,7 @@ public class PhoneController {
         phone.setAreaCode(phoneDTO.getAreaCode());
         phone.setNumber(phoneDTO.getNumber());
         phone.setType(phoneDTO.getType());
+        //agregar persona
         return phoneService.create(phone);
     }
 
@@ -96,13 +100,14 @@ public class PhoneController {
         phone.setAreaCode(phoneDTO.getAreaCode());
         phone.setNumber(phoneDTO.getNumber());
         phone.setType(phoneDTO.getType());
+        //agregar persona
         return phoneService.update(phone);
     }
 
     @GetMapping("/{id}")
     public ResponseApi<ItemPhone> findById(@PathVariable("id") Integer idPhone){
         boolean success = false;
-        String message = "No Person found";
+        String message = "No phone found";
         ItemPhone itemPhone = new ItemPhone();
         Phone phone = phoneService.findById(idPhone);
         if (phone != null){
