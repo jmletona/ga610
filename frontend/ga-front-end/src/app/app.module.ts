@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -10,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './components/login/login.component';
 
 import { ROUTES } from './app.routes';
+import { WorkersComponent } from './components/workers/workers.component';
+import { WorkerComponent } from './components/worker/worker.component';
 
 @NgModule({
   declarations: [
@@ -17,14 +20,17 @@ import { ROUTES } from './app.routes';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    WorkersComponent,
+    WorkerComponent,
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(ROUTES, {useHash:false}),
-    AppRoutingModule
+    RouterModule.forRoot(ROUTES, { useHash: false }),
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
