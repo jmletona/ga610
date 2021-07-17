@@ -49,4 +49,9 @@ public class CampusService implements ICampusService {
     public void delete(Integer id) {
         campusRepository.deleteById(id);
     }
+
+
+    public List<Campus> findByCountry(String country){
+        return campusRepository.findByCountry(country);
+    }
 }

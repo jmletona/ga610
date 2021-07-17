@@ -34,8 +34,14 @@ public class Person {
     private String lastname;
     @Column(name = "address")
     private String address;
+
     @Column(name = "created")
     private Date created;
+
+    @Column(name = "id_campus")
+    private Integer idCampus;
+
+
 
     @ManyToMany
     @JoinTable(name="person_service",
@@ -43,9 +49,9 @@ public class Person {
     inverseJoinColumns = @JoinColumn(name="id_service"))
     List<Service> services;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "id_campus")
-    private Campus campus;
+    private Campus campus;*/
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="id_person")
