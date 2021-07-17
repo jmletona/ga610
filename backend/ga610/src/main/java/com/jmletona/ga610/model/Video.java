@@ -22,7 +22,10 @@ public class Video {
     @Column(name = "created")
     private Timestamp created;
 
-    @ManyToOne
+    @Column(name = "id_person")
+    private Integer idPerson;
+
+    /*@ManyToOne
     @JoinColumn(name = "id_person")
-    private Person person;
+    private Person person;*/
 }

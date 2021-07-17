@@ -47,7 +47,7 @@ public class VideoController {
 
     public ItemVideo showVideo(Video video, ItemVideo itemVideo){
         itemVideo.setCreated(video.getCreated().toString());
-        itemVideo.setPerson(video.getPerson().getIdPerson().toString());
+        itemVideo.setIdPerson(video.getIdPerson().toString());
         itemVideo.setIdVideo(video.getIdVideo());
         itemVideo.setUrl(video.getUrl());
         return itemVideo;
@@ -76,7 +76,7 @@ public class VideoController {
 
     public Video createVideo(Video video, VideoDTO videoDTO){
         video.setCreated(Timestamp.from(Instant.now()));
-        video.setPerson(personService.findById(videoDTO.getIdPerson()));
+        video.setIdPerson(videoDTO.getIdPerson());
         video.setUrl(videoDTO.getUrl());
         return videoService.create(video);
     }

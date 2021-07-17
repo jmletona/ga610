@@ -30,7 +30,6 @@ public class ServiceService implements IServiceService {
         Service service = findById(serviceToUpdate.getServiceId());
         service.setServiceName(serviceToUpdate.getServiceName());
         service.setCreatedAt(serviceToUpdate.getCreatedAt());
-        service.setPersons(serviceToUpdate.getPersons());
 
         return serviceRepository.save(service);
     }
