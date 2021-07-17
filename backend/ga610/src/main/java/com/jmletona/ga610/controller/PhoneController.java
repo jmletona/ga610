@@ -45,7 +45,7 @@ public class PhoneController {
         itemPhone.setAreaCode(String.valueOf(phone.getAreaCode()));
         itemPhone.setNumber(String.valueOf(phone.getNumber()));
         itemPhone.setType(phone.getType());
-        itemPhone.setPerson(String.valueOf(phone.getIdPerson()));
+        itemPhone.setIdPerson(phone.getIdPerson());
         return itemPhone;
     }
 
