@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/")
@@ -75,6 +77,25 @@ public class ListServicesController {
         return "list-person";
     }
     private static DecimalFormat df2 = new DecimalFormat("#.#");
+
+    public String getAvgRanking(Integer idPerson){
+        List<Review> personReviews = reviewService.findByIdPersonAndStatus(idPerson, "APPROVED");
+
+        Map<String, Integer> values = new LinkedHashMap<>();
+        values.put("POOR", 1);
+        values.put("FAIR", 2);
+        values.put("GOOD", 3);
+        values.put("VERY GOOD", 4);
+        values.put("EXCELLENT", 5);
+
+        float sum = 0;
+
+        for(Review r : personReviews){
+            sum += values.get(r.getRanking());
+        }
+
+        return personReviews.size() == 0 ? "0.0" : df2.format(sum / personReviews.size());
+    }
 
     public String getRanking(Integer idPerson){
 
