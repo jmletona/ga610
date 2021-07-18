@@ -126,5 +126,10 @@ public class PersonController {
     public void delete(@PathVariable("id") Integer idPerson){
         personService.delete(idPerson);
     }
+
+    @GetMapping("/{serviceId}")
+    public List<Person> getPersonsForService(@PathVariable("serviceId") Integer serviceId){
+
+    }
 }
 

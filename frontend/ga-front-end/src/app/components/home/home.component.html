@@ -7,9 +7,8 @@
 </div>
 
 <div class="row">
-    <div *ngFor="let service of services; index as i;" class="six columns category trains">
-        <h5>{{service.name}}</h5>
-        <p>
+    <div *ngFor="let service of services;" class="six columns category trains">
+        <h5>{{service.serviceName}}</h5>       <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
             dolore
             magna aliqua.
@@ -23,7 +22,7 @@
                             class="left galleryicon" alt=""> Gallery</a>
                 </div>
                 <div class="inner">
-                    <a class="projectdetail" href="portofoliodetail.html">+ Service details</a>
+                    <a class="projectdetail" [routerLink]="['/service-detail/',service.serviceId]">+ Service details</a>
                 </div>
             </div>
             <!-- image here -->

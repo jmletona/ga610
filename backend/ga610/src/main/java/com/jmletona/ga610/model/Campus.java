@@ -18,10 +18,13 @@ public class Campus {
 
     @Column(name ="campus_name")
     private String name;
-    @Column(name ="country")
-    private String country;
+
     @Column(name ="created")
     private LocalDate createdAt;
+
+    @ManyToOne
+    @JoinColumn(name="country_id", referencedColumnName="id")
+    private Country country;
 
     @OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="id_user")

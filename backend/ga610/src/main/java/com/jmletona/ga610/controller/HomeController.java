@@ -2,8 +2,11 @@ package com.jmletona.ga610.controller;
 
 
 import com.jmletona.ga610.model.Campus;
+import com.jmletona.ga610.model.Country;
 import com.jmletona.ga610.model.Person;
 import com.jmletona.ga610.model.Service;
+import com.jmletona.ga610.repository.ICountryRepository;
+import com.jmletona.ga610.repository.IServiceRepository;
 import com.jmletona.ga610.service.CampusService;
 import com.jmletona.ga610.service.PersonService;
 import com.jmletona.ga610.service.ServiceService;
@@ -19,35 +22,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/country/1")
+@RequestMapping("/country")
 public class HomeController {
-    @Autowired
-    private CampusService campusService;
 
     @Autowired
-    private PersonService personService;
+    private IServiceRepository service;
 
     @Autowired
-    private ServiceService serviceService;
+    private ICountryRepository countryService;
 
-    @GetMapping
-    public List<String> home(Model model, @PathVariable("country") String country){
-        List<Campus> allCampus = campusService.findAll();
-        List<String> countries = new ArrayList<>();
-        for(Campus campus: allCampus){
-            if(!countries.contains(campus.getCountry())){
-                countries.add(campus.getCountry());
-            }
-        }
-        //model.addAttribute("countries", countries);
-        //model.addAttribute("services", services);
-        List<Person> allPersons = personService.findAll();
-        List<Service> services = new ArrayList<>();
+    @GetMapping("/get/{country}")
+    public List<Service> home(@PathVariable("country") Integer country){
+        return service.onFetchServices(country);
+    }
 
-        for(Person person: allPersons){
-
-        }
-         //todo servicio que tenga una persona en un campus de country
-        return countries;
+    @GetMapping("/all")
+    public List<Country> getAllCountries(){
+        return countryService.findAll();
     }
 }

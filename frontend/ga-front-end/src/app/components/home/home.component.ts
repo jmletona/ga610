@@ -9,17 +9,17 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   services:any[] = [];
-  countries:any[] = [
-    {id:1, name:"El Salvador"},
-    {id:2, name:"Guatemala"},
-    {id:3, name:"Mexico"},
-    {id:4, name:"Trinidad y Tobago"}
-  ];
+  countries:any[] = [];
 
   constructor(private http:HttpClient) {
-    http.get("https://restcountries.eu/rest/v2/lang/es")
+    http.get("http://localhost:9090/country/get/1")
         .subscribe((data:any) => {
           this.services = data;
+        });
+
+    http.get("http://localhost:9090/country/all")
+        .subscribe((data:any) => {
+          this.countries = data;
         });
    }
 

@@ -6,7 +6,7 @@ import { ServiceDetailComponent } from './components/service-detail/service-deta
 
 export const ROUTES: Routes = [
     { path:'home', component:HomeComponent },
-    { path:'service-detail', component:ServiceDetailComponent },
+    { path:'service-detail/:serviceId', component:ServiceDetailComponent },
     { path:'person-detail', component:PersonDetailComponent },
     { path:'login', component:LoginComponent},
     { path:'', pathMatch:'full', redirectTo:'home' },
