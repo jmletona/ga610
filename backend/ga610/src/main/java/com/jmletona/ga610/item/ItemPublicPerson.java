@@ -1,5 +1,7 @@
 package com.jmletona.ga610.item;
 
+import com.jmletona.ga610.model.Review;
+import com.jmletona.ga610.model.SocialNetwork;
 import com.jmletona.ga610.model.Video;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +20,8 @@ public class ItemPublicPerson implements IItem{
     String address;
     String created;
     String campus;
+    List<SocialNetwork> socialNetworks;
     List<Video> videos;
     List<String> gallery;
+    List<Review> reviews;
 }

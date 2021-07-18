@@ -1,10 +1,13 @@
 package com.jmletona.ga610.controller;
 
+import com.jmletona.ga610.item.ItemCountryServices;
 import com.jmletona.ga610.item.ItemListService;
+import com.jmletona.ga610.item.ItemServicePersons;
 import com.jmletona.ga610.model.Campus;
 import com.jmletona.ga610.model.Person;
 import com.jmletona.ga610.model.Review;
 import com.jmletona.ga610.model.Service;
+import com.jmletona.ga610.responses.ResponseApi;
 import com.jmletona.ga610.service.CampusService;
 import com.jmletona.ga610.service.PersonService;
 import com.jmletona.ga610.service.ReviewService;
@@ -15,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -22,7 +26,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/")
 public class ListServicesController {
 
@@ -38,7 +42,7 @@ public class ListServicesController {
     @Autowired
     private ReviewService reviewService;
 
-    @GetMapping("/{country}")
+    /*@GetMapping("/{country}")
     public String getAllServices(Model model, @PathVariable("country") String country){
         List<String> countries = new ArrayList<>();
         List<Campus> allCampus = campusService.findAll();
@@ -55,27 +59,55 @@ public class ListServicesController {
         model.addAttribute("country", country);
 
         return "list-services";
-    }
-    @GetMapping("/{country}/service/{idService}")
-    public String getAllPerson(Model model, @PathVariable("country") String country, @PathVariable("idService") Integer idService){
-        List<Person> allPersons = personService.findAll();
-        List<ItemListService> personServiceList = new ArrayList<>();
-        for (Person person : allPersons){
-            if(person.getServices().contains(serviceService.findById(idService)) && campusService.findById(person.getIdCampus()).getCountry().equals(country)){
-                ItemListService personUpgrade = new ItemListService();
-                personUpgrade.setIdPerson(person.getIdPerson());
-                personUpgrade.setCompany(person.getCompany());
-                personUpgrade.setLastname(person.getLastname());
-                personUpgrade.setName(person.getName());
-                personUpgrade.setRanking(getRanking(person.getIdPerson()));
-                personServiceList.add(personUpgrade);
-            }
+    }*/
+
+    @GetMapping("/{country}")
+    public ResponseApi<ItemCountryServices> getServicesByCountry(@PathVariable(name = "country") String country){
+        boolean success = false;
+        String message = "No services found";
+
+        ItemCountryServices countryServices = new ItemCountryServices();
+        countryServices.setCountryList(campusService.findCountries());
+        countryServices.setCurrentCountry(country);
+        countryServices.setServices(serviceService.findByCountry(country));
+
+        if(countryServices.getServices().size() > 0){
+            success = true;
+            message = "Services found";
         }
-        model.addAttribute("lista", personServiceList);
-        model.addAttribute("service", serviceService.findById(idService));
-        model.addAttribute("country", country);
-        return "list-person";
+
+        return new ResponseApi<>(success, message, countryServices);
     }
+
+    @GetMapping("/{country}/service/{idService}")
+    public ResponseApi<ItemServicePersons> getAllPerson(Model model, @PathVariable("country") String country, @PathVariable("idService") Integer idService){
+        boolean success = false;
+        String message = "No persons found";
+        List<ItemListService> personServiceList = new ArrayList<>();
+
+        for (Person p : personService.findByCountryAndService(country, idService)){
+            ItemListService personItem = new ItemListService();
+            personItem.setIdPerson(p.getIdPerson());
+            personItem.setName(p.getName());
+            personItem.setLastname(p.getLastname());
+            personItem.setCompany(p.getCompany());
+            personItem.setRanking(getAvgRanking(p.getIdPerson()));
+            personServiceList.add(personItem);
+        }
+
+        if (personServiceList.size() > 0){
+            success = true;
+            message = "Found " + personServiceList.size() + " records";
+        }
+
+        ItemServicePersons servicePersons = new ItemServicePersons();
+        servicePersons.setService(serviceService.findById(idService));
+        servicePersons.setCountry(country);
+        servicePersons.setPersons(personServiceList);
+
+        return new ResponseApi<>(success, message, servicePersons);
+    }
+
     private static DecimalFormat df2 = new DecimalFormat("#.#");
 
     public String getAvgRanking(Integer idPerson){
@@ -95,41 +127,5 @@ public class ListServicesController {
         }
 
         return personReviews.size() == 0 ? "0.0" : df2.format(sum / personReviews.size());
-    }
-
-    public String getRanking(Integer idPerson){
-
-        double ranking = 0;
-        Integer counter = 0;
-        List<Review> allReviews= reviewService.findAll();
-        for(Review review: allReviews){
-            if(review.getIdPerson().equals(idPerson) && review.getStatus().equals("APPROVED")){
-                counter++;
-                System.out.println("ranking" + review.getRanking() + " status"+ review.getStatus());
-                switch (review.getRanking()){
-                    case "POOR":
-                        ranking +=1;
-                        break;
-                    case "FAIR":
-                        ranking +=2;
-                        break;
-                    case "GOOD":
-                        ranking +=3;
-                        break;
-                    case "VERY GOOD":
-                        ranking +=4;
-                        break;
-                    case "EXCELLENT":
-                        ranking +=5;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-        if(counter!=0){
-            ranking = ranking / counter;
-        }
-        return df2.format(ranking);
     }
 }

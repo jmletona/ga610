@@ -12,6 +12,8 @@ public interface IServiceService {
 
     Service findById(Integer id);
 
+    List<Service> findByCountry(String country);
+
     List<Service> findAll();
 
     void delete(Integer id);
