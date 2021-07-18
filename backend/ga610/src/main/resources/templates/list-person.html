@@ -5,8 +5,24 @@
     <title>Title</title>
 </head>
 <body>
-    <tr th:each = "p : ${lista}">
-        <td th:utext="${t.name}"></td>
+    <h1><span th:text="${country}"></span> - <span th:text="${service.serviceName}"></span></h1>
+    <table>
+    <tr>
+        <th>Persona</th>
+        <th>Puntuaci&oacute;n</th>
+        <th>Detalles</th>
     </tr>
+    <tr th:each = "t : ${lista}">
+        <td>
+            <span th:utext="${t.idPerson}"></span> - <span th:utext="${t.lastname}"></span>, <span th:utext="${t.name}"></span> [ <span th:utext="${t.company}"></span> ]
+        </td>
+        <td>
+            <span th:utext="${t.ranking}"></span>
+        </td>
+        <td>
+            <a th:href="@{persona/{id}/(id=${t.idPerson})}"> Ver </a>
+        </td>
+    </tr>
+    </table>
 </body>
 </html>
