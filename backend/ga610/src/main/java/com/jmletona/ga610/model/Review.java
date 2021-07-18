@@ -28,6 +28,9 @@ public class Review {
     @Column(name = "id_person")
     private Integer idPerson;
 
+    @Column(name = "id_user")
+    private Integer idUser;
+
     @Column(name = "created")
     private Date created;
 }

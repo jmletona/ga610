@@ -4,6 +4,7 @@ import com.jmletona.ga610.item.ItemPublicPerson;
 import com.jmletona.ga610.model.Person;
 import com.jmletona.ga610.responses.ResponseApi;
 import com.jmletona.ga610.service.PersonService;
+import com.jmletona.ga610.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,9 @@ public class PublicPersonController {
 
     @Autowired
     private PersonService personService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @GetMapping("/person/{idPerson}")
     public ResponseApi<ItemPublicPerson> getPersonDetails(@PathVariable(name = "idPerson") Integer idPerson){
@@ -38,9 +42,13 @@ public class PublicPersonController {
             publicPerson.setCampus(person.getIdCampus().toString());
             publicPerson.setCompany(person.getCompany());
             publicPerson.setDescription(person.getDescription());
+            System.out.println("VIDEOS");
             publicPerson.setVideos(person.getVideoList());
+            System.out.println("SOCIAL NETWORKS");
+            publicPerson.setSocialNetworks(person.getSocialNetworkList());
             publicPerson.setCreated(person.getCreated().toString());
             publicPerson.setGallery(getGallery(person.getIdPerson()));
+            publicPerson.setReviews(reviewService.findByIdPersonAndStatus(person.getIdPerson(), "APPROVED"));
         }
 
         return new ResponseApi<>(success, message, !success ? null : publicPerson);

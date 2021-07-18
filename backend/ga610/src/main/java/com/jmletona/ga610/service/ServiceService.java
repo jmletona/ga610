@@ -41,6 +41,11 @@ public class ServiceService implements IServiceService {
     }
 
     @Override
+    public List<Service> findByCountry(String country){
+        return serviceRepository.findByCountry(country);
+    }
+
+    @Override
     public List<Service> findAll() {
         return serviceRepository.findAll();
     }
