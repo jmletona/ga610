@@ -1,9 +1,11 @@
 package com.jmletona.ga610.controller;
 
+import com.jmletona.ga610.item.ItemListService;
 import com.jmletona.ga610.model.Person;
-import com.jmletona.ga610.repository.IPersonRepository;
+import com.jmletona.ga610.model.Review;
 import com.jmletona.ga610.service.CampusService;
 import com.jmletona.ga610.service.PersonService;
+import com.jmletona.ga610.service.ReviewService;
 import com.jmletona.ga610.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,33 +31,68 @@ public class ListServicesController {
     @Autowired
     private CampusService campusService;
 
+    @Autowired
+    private ReviewService reviewService;
 
-    /*public List<Person> getAllPerson(@PathVariable("country") String country, @PathVariable("idService") Integer idService){
-        System.out.println(country + " " + idService);
-        List<Person> allPersons = personService.findAll();
-        List<Person> personServiceList = new ArrayList<>();
-        System.out.println(allPersons.size());
-        for (Person person : allPersons){
-            if(person.getServices().contains(serviceService.findById(idService)) && campusService.findById(person.getIdCampus()).getCountry().equals(country)){
-                personServiceList.add(person);
-            }
-        }
-        return personServiceList;
-    }*/
+
     @GetMapping("/services/{country}/{idService}")
     public String getAllPerson(Model model, @PathVariable("country") String country, @PathVariable("idService") Integer idService){
-        System.out.println(country + " " + idService);
         List<Person> allPersons = personService.findAll();
-        List<Person> personServiceList = new ArrayList<>();
-        System.out.println(allPersons.size());
+        List<ItemListService> personServiceList = new ArrayList<>();
         for (Person person : allPersons){
             if(person.getServices().contains(serviceService.findById(idService)) && campusService.findById(person.getIdCampus()).getCountry().equals(country)){
-                personServiceList.add(person);
+                ItemListService personUpgrade = new ItemListService();
+                personUpgrade.setIdPerson(person.getIdPerson());
+                personUpgrade.setCompany(person.getCompany());
+                personUpgrade.setLastname(person.getLastname());
+                personUpgrade.setName(person.getName());
+                personUpgrade.setRanking(getRanking(person.getIdPerson()));
+                personServiceList.add(personUpgrade);
             }
         }
         System.out.println(personServiceList);
         model.addAttribute("lista", personServiceList);
+        model.addAttribute("service", serviceService.findById(idService));
+        model.addAttribute("country", country);
         return "list-person";
     }
+    private static DecimalFormat df2 = new DecimalFormat("#.#");
+
+    public String getRanking(Integer idPerson){
+
+        double ranking = 0;
+        Integer counter = 0;
+        List<Review> allReviews= reviewService.findAll();
+        for(Review review: allReviews){
+            if(review.getIdPerson().equals(idPerson) && review.getStatus().equals("APPROVED")){
+                counter++;
+                System.out.println("ranking" + review.getRanking() + " status"+ review.getStatus());
+                switch (review.getRanking()){
+                    case "POOR":
+                        ranking +=1;
+                        break;
+                    case "FAIR":
+                        ranking +=2;
+                        break;
+                    case "GOOD":
+                        ranking +=3;
+                        break;
+                    case "VERY GOOD":
+                        ranking +=4;
+                        break;
+                    case "EXCELLENT":
+                        ranking +=5;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        if(counter!=0){
+            ranking = ranking / counter;
+        }
+        return df2.format(ranking);
+    }
+
 
 }
