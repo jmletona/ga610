@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>GaFrontEnd</title>
@@ -8,8 +9,23 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="./assets/css/responsive.css">
   <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/skins/blue.css">
+
 </head>
+
 <body>
   <app-root></app-root>
 </body>
+<script>
+  $(document).ready(function () {
+      
+      $('.carousel').slick({
+          slidesToShow: 3,
+          dots: true,
+          centerMode: true,
+          horizontal: true
+      });
+  });
+</script>
+
 </html>

@@ -1,0 +1,58 @@
+<div class="row">
+    <!-- PROJECT DESCRIPTION-->
+    <div class="twelve columns">
+        <div class="sectiontitle">
+            <h4>Project name</h4>
+        </div>
+        <p>
+            Phasellus nec nibh id arcu pharetra blandit. Nullam mollis, lacus nec lacinia porttitor, odio eros laoreet
+            nibh, at scelerisque magna justo eu turpis. Duis sed risus sit amet nunc cursus suscipit. Duis sed est
+            turpis. Sed imperdiet elit eget massa consectetur sit amet rhoncus purus sagittis. Ut vitae nulla tempus
+            erat accumsan porta a ut turpis. Suspendisse pharetra sagittis tellus, eu viverra neque molestie id.
+        </p>
+
+    </div>
+    <!-- end main content-->
+</div>
+
+<div class="row">
+    <div class="twelve columns">
+        <div class="centersectiontitle">
+            <h4>Gallery</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="twelve columns">
+        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"
+            (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+            (beforeChange)="beforeChange($event)">
+            <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                <img src="https://picsum.photos/300/200?random={{slide}}" alt="" width="100%">
+            </div>
+        </ngx-slick-carousel>
+    </div>
+</div>
+
+<div class="row">
+    <div class="twelve columns">
+        <div class="centersectiontitle">
+            <h4>Videos</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="twelve columns">
+        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"
+            (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+            (beforeChange)="beforeChange($event)">
+            <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                <iframe style="width: 100%;" src="https://www.youtube.com/embed/Gx4iBLKLVHk?controls=0"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </ngx-slick-carousel>
+    </div>
+</div>

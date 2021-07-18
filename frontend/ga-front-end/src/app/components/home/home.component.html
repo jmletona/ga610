@@ -1,1 +1,33 @@
-<p>hello from HomeComponent!</p>
+<div class="row">
+    <label>Select a country:
+        <select name="country" id="country" class="button">
+            <option *ngFor="let country of countries;" value={{country.id}}>{{country.name}}</option>
+        </select>
+    </label>
+</div>
+
+<div class="row">
+    <div *ngFor="let service of services; index as i;" class="six columns category trains">
+        <h5>{{service.name}}</h5>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore
+            magna aliqua.
+        </p>
+        <div class="portofoliothumb">
+            <div class="portofoliothumboverlay">
+                <div class="viewgallery">
+                    <!--image here -->
+                    <a data-gal="prettyPhoto[gallery]">
+                        <img src="http://www.wowthemes.net/demo/studiofrancesca/images/playgal.png"
+                            class="left galleryicon" alt=""> Gallery</a>
+                </div>
+                <div class="inner">
+                    <a class="projectdetail" href="portofoliodetail.html">+ Service details</a>
+                </div>
+            </div>
+            <!-- image here -->
+            <img [src]="service.flag" alt="">
+        </div>
+    </div>
+</div>

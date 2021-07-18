@@ -1,0 +1,32 @@
+.slick-slider {
+    width: 90%;
+    margin: auto;
+    background: #000;
+  }
+
+  .row{
+    margin-bottom: 1%;
+  }
+  
+  .nav-btn {
+    height: 47px;
+    position: absolute;
+    width: 26px;
+    cursor: pointer;
+    top: 100px !important;
+  }
+  
+  .prev-slide.slick-disabled,
+  .next-slide.slick-disabled {
+    pointer-events: none;
+    opacity: 0.2;
+  }
+  
+  .prev-slide:hover {
+    background-position: 0px -53px;
+  }
+  
+  .next-slide:hover {
+    background-position: -24px -53px;
+  }
+  

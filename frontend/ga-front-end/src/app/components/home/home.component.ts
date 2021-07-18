@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  services:any[] = [];
+  countries:any[] = [
+    {id:1, name:"El Salvador"},
+    {id:2, name:"Guatemala"},
+    {id:3, name:"Mexico"},
+    {id:4, name:"Trinidad y Tobago"}
+  ];
+
+  constructor(private http:HttpClient) {
+    http.get("https://restcountries.eu/rest/v2/lang/es")
+        .subscribe((data:any) => {
+          this.services = data;
+        });
+   }
 
   ngOnInit(): void {
   }
