@@ -1,8 +1,10 @@
 package com.jmletona.ga610.controller;
 
 import com.jmletona.ga610.item.ItemListService;
+import com.jmletona.ga610.model.Campus;
 import com.jmletona.ga610.model.Person;
 import com.jmletona.ga610.model.Review;
+import com.jmletona.ga610.model.Service;
 import com.jmletona.ga610.service.CampusService;
 import com.jmletona.ga610.service.PersonService;
 import com.jmletona.ga610.service.ReviewService;
@@ -34,8 +36,25 @@ public class ListServicesController {
     @Autowired
     private ReviewService reviewService;
 
+    @GetMapping("/{country}")
+    public String getAllServices(Model model, @PathVariable("country") String country){
+        List<String> countries = new ArrayList<>();
+        List<Campus> allCampus = campusService.findAll();
+        for(Campus campus : allCampus){
+            if(!countries.contains(campus.getCountry())){
+                countries.add(campus.getCountry());
+                System.out.println(campus.getCountry());
+            }
+        }
 
-    @GetMapping("/services/{country}/{idService}")
+        List<Service> allServices = serviceService.findAll();
+        model.addAttribute("countries", countries);
+        model.addAttribute("services", allServices);
+        model.addAttribute("country", country);
+
+        return "list-services";
+    }
+    @GetMapping("/{country}/service/{idService}")
     public String getAllPerson(Model model, @PathVariable("country") String country, @PathVariable("idService") Integer idService){
         List<Person> allPersons = personService.findAll();
         List<ItemListService> personServiceList = new ArrayList<>();
@@ -50,7 +69,6 @@ public class ListServicesController {
                 personServiceList.add(personUpgrade);
             }
         }
-        System.out.println(personServiceList);
         model.addAttribute("lista", personServiceList);
         model.addAttribute("service", serviceService.findById(idService));
         model.addAttribute("country", country);
@@ -93,6 +111,4 @@ public class ListServicesController {
         }
         return df2.format(ranking);
     }
-
-
 }
