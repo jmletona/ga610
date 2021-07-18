@@ -2,6 +2,7 @@ package com.jmletona.ga610.controller;
 
 import com.jmletona.ga610.item.ItemPublicPerson;
 import com.jmletona.ga610.model.Person;
+import com.jmletona.ga610.responses.ResponseApi;
 import com.jmletona.ga610.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,25 +20,30 @@ public class PublicPersonController {
     @Autowired
     private PersonService personService;
 
-    //@GetMapping("/{country}/service/{idService}/person/{idPerson}")
     @GetMapping("/person/{idPerson}")
-    public ItemPublicPerson getPersonDetails(@PathVariable(name = "idPerson") Integer idPerson){
+    public ResponseApi<ItemPublicPerson> getPersonDetails(@PathVariable(name = "idPerson") Integer idPerson){
+        boolean success = false;
+        String message = "No person found";
         Person person = personService.findById(idPerson);
-
         ItemPublicPerson publicPerson = new ItemPublicPerson();
-        publicPerson.setIdPerson(person.getIdPerson());
-        publicPerson.setActive(person.getActive());
-        publicPerson.setName(person.getName());
-        publicPerson.setLastname(person.getLastname());
-        publicPerson.setAddress(person.getAddress());
-        publicPerson.setCampus(person.getIdCampus().toString());
-        publicPerson.setCompany(person.getCompany());
-        publicPerson.setDescription(person.getDescription());
-        publicPerson.setVideos(person.getVideoList());
-        publicPerson.setCreated(person.getCreated().toString());
-        publicPerson.setGallery(getGallery(person.getIdPerson()));
 
-        return publicPerson;
+        if (person != null){
+            success = true;
+            message = "Person found";
+            publicPerson.setIdPerson(person.getIdPerson());
+            publicPerson.setActive(person.getActive());
+            publicPerson.setName(person.getName());
+            publicPerson.setLastname(person.getLastname());
+            publicPerson.setAddress(person.getAddress());
+            publicPerson.setCampus(person.getIdCampus().toString());
+            publicPerson.setCompany(person.getCompany());
+            publicPerson.setDescription(person.getDescription());
+            publicPerson.setVideos(person.getVideoList());
+            publicPerson.setCreated(person.getCreated().toString());
+            publicPerson.setGallery(getGallery(person.getIdPerson()));
+        }
+
+        return new ResponseApi<>(success, message, !success ? null : publicPerson);
     }
 
     private List<String> getGallery(Integer idPerson){
