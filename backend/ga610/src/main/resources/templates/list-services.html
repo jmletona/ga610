@@ -6,10 +6,6 @@
 </head>
 <body>
 <h1><span th:text="${country}"></span></h1>
-
-    <!--
-    <option th:each="i : ${countries}" th:value="${i}" th:text="@{/{id}/(id=${i})}">
-    -->
 <table>
     <tr>
         <td th:each = "i : ${countries}">

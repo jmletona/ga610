@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -12,7 +13,7 @@ import java.util.Date;
 @Setter
 public class SocialNetwork {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_social_network")
     private int idSocialNetwork;
 
@@ -25,10 +26,6 @@ public class SocialNetwork {
     @Column(name = "id_person")
     private Integer idPerson;
 
-    /*
-    private Person person;
-    */
-
     @Column(name = "created")
-    private Date created;
+    private Timestamp created;
 }

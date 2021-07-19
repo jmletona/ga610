@@ -11,5 +11,6 @@ public class SocialNetworkDTO {
     private Integer idSocialNetwork;
     private String url;
     private String type;
+    private Integer idPerson;
     private Date created;
 }
