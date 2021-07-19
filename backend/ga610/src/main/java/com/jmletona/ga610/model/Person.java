@@ -7,11 +7,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-import java.util.Set;
-
-
 @Entity
-@Table(name = "person")
+@Table(name="person")
 @Getter
 @Setter
 public class Person {
@@ -20,6 +17,7 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_person")
     private Integer idPerson;
+
 
     @Column(name ="is_active")
     private Boolean active;
@@ -36,9 +34,12 @@ public class Person {
     private String lastname;
     @Column(name = "address")
     private String address;
+
     @Column(name = "created")
     private Date created;
 
+    @Column(name = "id_campus")
+    private Integer idCampus;
 
     @ManyToMany
     @JoinTable(name="person_service",
@@ -46,12 +47,18 @@ public class Person {
     inverseJoinColumns = @JoinColumn(name="id_service"))
     List<Service> services;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_person")
+    //@JoinTable(name="video", joinColumns = @JoinColumn(name = "id_person"))
+    private List<Video> videoList;
 
-    @ManyToOne
-    @JoinColumn(name = "id_campus")
-    private Campus campus;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_person")
+    //@JoinTable(name="social_network", joinColumns = @JoinColumn(name = "id_person"))
+    private List<SocialNetwork> socialNetworkList;
 
-
-
-
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_person")
+    //@JoinTable(name="review", joinColumns = @JoinColumn(name = "id_person"))
+    private List<Review> reviewList;
 }

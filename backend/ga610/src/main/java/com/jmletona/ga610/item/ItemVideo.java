@@ -8,6 +8,6 @@ import lombok.Setter;
 public class ItemVideo implements IItem{
     Integer idVideo;
     String url;
-    String person;
+    String idPerson;
     String created;
 }

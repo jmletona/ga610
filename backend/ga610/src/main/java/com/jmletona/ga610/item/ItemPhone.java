@@ -10,6 +10,6 @@ public class ItemPhone implements IItem {
     String areaCode;
     String number;
     String type;
-    String person;
-    String created;
+    String updated;
+    Integer idPerson;
 }

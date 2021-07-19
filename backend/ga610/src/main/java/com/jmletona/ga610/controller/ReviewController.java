@@ -17,6 +17,7 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
+    @GetMapping
     public ResponseApi<List<ItemReview>> getAllReviews(){
         boolean success = false;
         String message = "No Review found";
@@ -42,6 +43,9 @@ public class ReviewController {
         itemReview.setRanking(review.getRanking());
         itemReview.setStatus(review.getStatus());
         itemReview.setComment(review.getComment());
+        itemReview.setPerson(review.getIdPerson().toString());
+        itemReview.setUser(review.getIdUser().toString());
+        if (review.getCreated() != null) itemReview.setCreated(review.getCreated().toString());
         return itemReview;
     }
 
@@ -69,8 +73,8 @@ public class ReviewController {
         review.setRanking(reviewDTO.getRanking());
         review.setStatus(reviewDTO.getStatus());
         review.setComment(reviewDTO.getComment());
-        //agregar persona
-        //agregar user
+        review.setIdPerson(reviewDTO.getIdPerson());
+        review.setIdUser(reviewDTO.getIdUser());
         return reviewService.create(review);
     }
 

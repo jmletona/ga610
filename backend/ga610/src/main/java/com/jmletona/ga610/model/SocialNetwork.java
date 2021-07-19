@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "SOCIAL_NETWORK")
+@Table(name = "social_network")
 @Getter
 @Setter
 public class SocialNetwork {
@@ -21,6 +21,9 @@ public class SocialNetwork {
 
     @Column(name = "social_network_type",columnDefinition = "enum('FACEBOOK','INSTAGRAM','TWITTER')")
     private String type;
+
+    @Column(name = "id_person")
+    private Integer idPerson;
 
     /*
     private Person person;

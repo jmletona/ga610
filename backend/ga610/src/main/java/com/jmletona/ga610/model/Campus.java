@@ -23,12 +23,8 @@ public class Campus {
     @Column(name = "created")
     private LocalDate createdAt;
 
-    /*@OneToMany(cascade= CascadeType.ALL)
-    @JoinColumn(name="id_campus")
-    private List<Person> personList;*/
-    @OneToMany(mappedBy = "campus")
-    private List<CampusUser> users;
+    @OneToMany(cascade= CascadeType.ALL)
+    @JoinColumn(name="id_user")
+    private List<CampusUser> campusUserList;
 
-    @OneToMany(mappedBy = "campus")
-    private List<Person> People;
 }

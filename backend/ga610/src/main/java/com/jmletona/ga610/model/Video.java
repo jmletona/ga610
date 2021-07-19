@@ -4,26 +4,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "VIDEO")
+@Table(name = "video")
 @Getter
 @Setter
 public class Video {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_video")
-    private int idVideo;
+    private Integer idVideo;
 
     @Column(name = "url")
     private String url;
 
-    /*
-    private Person person;
-    */
-
     @Column(name = "created")
-    private Date created;
+    private Timestamp created;
 
+    @Column(name = "id_person")
+    private Integer idPerson;
+
+    /*@ManyToOne
+    @JoinColumn(name = "id_person")
+    private Person person;*/
 }

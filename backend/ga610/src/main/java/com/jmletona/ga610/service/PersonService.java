@@ -38,6 +38,11 @@ public class PersonService implements IPersonService{
     }
 
     @Override
+    public List<Person> findByCountryAndService(String country, Integer idService){
+        return personRepository.findByCountryAndService(country, idService);
+    }
+
+    @Override
     public List<Person> findAll() {
         return personRepository.findAll();
     }

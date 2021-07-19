@@ -34,6 +34,11 @@ public class ReviewService implements IReviewService{
     }
 
     @Override
+    public List<Review> findByIdPersonAndStatus(Integer idPerson, String status){
+        return reviewRepository.findByIdPersonAndStatus(idPerson, status);
+    }
+
+    @Override
     public List<Review> findAll() {
         return reviewRepository.findAll();
     }

@@ -1,0 +1,68 @@
+************************************************************
+******************  PHONE ENDPOINTS ************************
+************************************************************
+SENT
+{
+    "success": true,
+    "message": "Phone found",
+    "data": {
+        "idPhone": 3,
+        "areaCode": "502",
+        "number": "22211460",
+        "type": "CELLPHONE",
+        "person": "1",
+        "created": null,
+        "idPerson": null
+    }
+}
+*******************************************************
+findAll GET	http://localhost:9090/phones
+findById GET http://localhost:9090/phones/3
+update PUT	http://localhost:9090/phones
+RECIVED
+{
+    "idPhone":3,
+    "areaCode": 502,
+    "number": 22211460,
+    "phoneType": "CELLPHONE"
+}
+
+create POST http://localhost:9090/phones
+RECIVED
+{
+    "areaCode": 504,
+    "number": 22211460,
+    "phoneType": "CELLPHONE",
+    "idPerson": 1
+}
+
+************************************************************
+******************  VIDEO ENDPOINTS ************************
+************************************************************
+SENT
+{
+    "success": true,
+    "message": "Video found",
+    "data": {
+        "idVideo": 1,
+        "url": "https://vimeo.com/",
+        "person": "1",
+        "created": "2021-07-16 08:53:52.0"
+    }
+}
+************************************************************
+findAll GET	http://localhost:9090/videos
+findById GET http://localhost:9090/videos/3
+update PUT	http://localhost:9090/videos
+{
+    "idVideo": 1,
+    "url": "https://vimeo.com/"
+}
+create POST http://localhost:9090/videos
+{
+    "url": "https://vimeo.com/3302123b",
+    "idPerson": 1
+}
+************************************************************
+******************  VIDEO ENDPOINTS ************************
+************************************************************

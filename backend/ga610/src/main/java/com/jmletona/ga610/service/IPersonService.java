@@ -12,6 +12,8 @@ public interface IPersonService {
 
     Person findById(Integer id);
 
+    List<Person> findByCountryAndService(String country, Integer idService);
+
     List<Person> findAll();
 
     void delete(Integer id);

@@ -12,9 +12,12 @@ import java.util.Optional;
 @Service
 public class CampusUserService implements ICampusUserService {
 
-
-    private ICampusUserRepository campusUserRepository;
     @Autowired
+    private ICampusUserRepository campusUserRepository;
+
+
+
+
     public CampusUserService(ICampusUserRepository campusUserRepository) {
         this.campusUserRepository = campusUserRepository;
     }
@@ -26,7 +29,7 @@ public class CampusUserService implements ICampusUserService {
 
     @Override
     public CampusUser update(CampusUser campusUserToUpdate) {
-        CampusUser camapusUser = findById(campusUserToUpdate.getCampusId());
+        CampusUser camapusUser = findById(campusUserToUpdate.getUserId());
         camapusUser.setFullName(campusUserToUpdate.getFullName());
         camapusUser.setEmail(campusUserToUpdate.getEmail());
         camapusUser.setCreatedAt(campusUserToUpdate.getCreatedAt());

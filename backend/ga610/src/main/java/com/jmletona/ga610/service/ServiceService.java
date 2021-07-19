@@ -30,7 +30,6 @@ public class ServiceService implements IServiceService {
         Service service = findById(serviceToUpdate.getServiceId());
         service.setServiceName(serviceToUpdate.getServiceName());
         service.setCreatedAt(serviceToUpdate.getCreatedAt());
-        service.setPersons(serviceToUpdate.getPersons());
 
         return serviceRepository.save(service);
     }
@@ -39,6 +38,11 @@ public class ServiceService implements IServiceService {
     public Service findById(Integer id) {
         Optional<Service> campusOptional = serviceRepository.findById(id);
         return campusOptional.orElse(null);
+    }
+
+    @Override
+    public List<Service> findByCountry(String country){
+        return serviceRepository.findByCountry(country);
     }
 
     @Override

@@ -12,10 +12,6 @@ import java.util.Set;
 @Data
 public class Service {
 
-    // ManyToMay relationship between Person and service.
-    @ManyToMany(mappedBy = "services")
-    List<Person> persons;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_service")

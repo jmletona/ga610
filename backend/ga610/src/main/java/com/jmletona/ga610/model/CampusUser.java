@@ -23,21 +23,15 @@ public class CampusUser {
 
     @Column(name = "user_password")
     private String userPassword;
-    
+
     @Column(name = "created")
     private LocalDate createdAt;
 
     @ManyToOne
-   // @JoinColumn(name = "id_role")
+    @JoinColumn(name = "id_role")
     private UserRole userRole;
 
-    @Column(name = "id_role")
-    private Integer roleId;
-
     @ManyToOne
+    @JoinColumn(name = "id_campus")
     private Campus campus;
-
-    @Column(name = "id_campus")
-    private Integer campusId;
-
 }

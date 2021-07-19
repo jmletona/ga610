@@ -41,6 +41,11 @@ public class CampusService implements ICampusService {
     }
 
     @Override
+    public List<String> findCountries(){
+        return campusRepository.findCountries();
+    }
+
+    @Override
     public List<Campus> findAll() {
         return campusRepository.findAll();
     }
@@ -48,5 +53,10 @@ public class CampusService implements ICampusService {
     @Override
     public void delete(Integer id) {
         campusRepository.deleteById(id);
+    }
+
+
+    public List<Campus> findByCountry(String country){
+        return campusRepository.findByCountry(country);
     }
 }
