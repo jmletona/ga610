@@ -14,5 +14,7 @@ public interface IPhoneService {
 
     List<Phone> findAll();
 
+    List<String> findPhoneTypes();
+
     void delete(Integer id);
 }

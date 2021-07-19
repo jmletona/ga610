@@ -15,5 +15,6 @@ public class PersonDTO {
     private String name;
     private String lastname;
     private String address;
+    private Integer idCampus;
     private Date created;
 }

@@ -18,6 +18,7 @@ public class UserRole {
     @Column(name ="role_type")
     private String roleType;
 
-    @OneToMany(mappedBy = "userRole")
+    @OneToMany(cascade= CascadeType.ALL)
+    @JoinColumn(name="id_role")
     private List<CampusUser> users;
 }
