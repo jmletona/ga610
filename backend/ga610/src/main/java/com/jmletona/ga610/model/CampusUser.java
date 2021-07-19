@@ -15,9 +15,6 @@ public class CampusUser {
     @Column(name = "id_user")
     private Integer userId;
 
-    @Column(name = "id_campus")
-    private Integer campusId;
-
     @Column(name = "full_name")
     private String fullName;
 
@@ -26,18 +23,21 @@ public class CampusUser {
 
     @Column(name = "user_password")
     private String userPassword;
-
-    //@Column(name = "id_role")
-    //private Integer roleId;
-
+    
     @Column(name = "created")
     private LocalDate createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "id_role")
+   // @JoinColumn(name = "id_role")
     private UserRole userRole;
+
+    @Column(name = "id_role")
+    private Integer roleId;
 
     @ManyToOne
     private Campus campus;
+
+    @Column(name = "id_campus")
+    private Integer campusId;
 
 }
