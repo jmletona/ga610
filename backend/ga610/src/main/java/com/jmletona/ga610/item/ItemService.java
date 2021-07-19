@@ -1,8 +1,13 @@
 package com.jmletona.ga610.item;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
-public class ItemService {
+@Getter
+@Setter
+public class ItemService implements IItem {
     private Integer serviceId;
 
     private String serviceName;

@@ -16,11 +16,11 @@ public class Campus {
     @Column(name = "id_campus")
     private Integer campusId;
 
-    @Column(name ="campus_name")
+    @Column(name = "campus_name")
     private String name;
-    @Column(name ="country")
+    @Column(name = "country")
     private String country;
-    @Column(name ="created")
+    @Column(name = "created")
     private LocalDate createdAt;
 
     @OneToMany(cascade= CascadeType.ALL)
