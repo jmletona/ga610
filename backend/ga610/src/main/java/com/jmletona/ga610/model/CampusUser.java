@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class CampusUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
     private Integer userId;
 

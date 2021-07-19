@@ -12,6 +12,9 @@ import com.jmletona.ga610.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,9 +78,9 @@ public class ServiceController {
 
     public Service createService(Service service, ServiceDTO serviceDTO) {
 
-        service.setServiceId(serviceDTO.getServiceId());
+        //service.setServiceId(serviceDTO.getServiceId());
         service.setServiceName(serviceDTO.getServiceName());
-        service.setCreatedAt(serviceDTO.getCreatedAt());
+        service.setCreatedAt(Timestamp.from(Instant.now()));
         service = this.serviceService.create(service);
         return service;
     }

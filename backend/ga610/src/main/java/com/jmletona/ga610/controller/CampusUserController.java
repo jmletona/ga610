@@ -52,8 +52,8 @@ public class CampusUserController {
         itemCampusUser.setFullName(campusUser.getFullName());
         itemCampusUser.setUserPassword(campusUser.getUserPassword());
         itemCampusUser.setCreatedAt(campusUser.getCreatedAt().toString());
-        itemCampusUser.setCampusId(campusUser.getCampusId());
-        itemCampusUser.setRoleId(campusUser.getRoleId());
+        //itemCampusUser.setCampusId(campusUser.getCampusId());
+        //itemCampusUser.setRoleId(campusUser.getRoleId());
 
         return itemCampusUser;
     }
@@ -84,7 +84,7 @@ public class CampusUserController {
         campusUser.setFullName(campusUserDTO.getFullName());
         campusUser.setUserPassword(campusUserDTO.getUserPassword());
         campusUser.setCreatedAt(campusUserDTO.getCreatedAt());
-        campusUser.setCampusId(campusUser.getCampus().getCampusId());
+       // campusUser.setCampusId(campusUser.getCampus().getCampusId());
         campusUser.setCampus(null);
         campusUser.setUserId(campusUser.getUserRole().getRoleId());
         campusUser.setUserRole(null);
@@ -117,7 +117,7 @@ public class CampusUserController {
                                  CampusUserDTO campusUserDTO) {
         campusUser.setFullName(campusUserDTO.getFullName());
         campusUser.setEmail(campusUserDTO.getEmail());
-        campusUser.setCampusId(campusUserDTO.getCampusId());
+        //campusUser.setCampusId(campusUserDTO.getCampusId());
 
         campusUser = this.campusUserService.update(campusUser);
         return campusUser;

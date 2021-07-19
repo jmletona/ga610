@@ -12,6 +12,7 @@ import com.jmletona.ga610.service.CampusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,8 +51,8 @@ public class CampusController {
         itemCampus.setName(campus.getName());
         itemCampus.setCountry(campus.getCountry());
         itemCampus.setCreatedAt(campus.getCreatedAt());
-        itemCampus.setPeople(campus.getPeople());
-        itemCampus.setUsers(campus.getUsers());
+        //itemCampus.setPeople(campus.getPeople());
+        //itemCampus.setUsers(campus.getUsers());
         return itemCampus;
     }
 
@@ -77,10 +78,10 @@ public class CampusController {
 
     public Campus createCampus(Campus campus, CampusDTO campusDTO) {
 
-        campus.setCampusId(campusDTO.getCampusId());
+        //campus.setCampusId(campusDTO.getCampusId());
         campus.setName(campusDTO.getName());
         campus.setCountry(campusDTO.getCountry());
-        campus.setCreatedAt(campusDTO.getCreatedAt());
+        campus.setCreatedAt(LocalDate.now());
         campus = this.serviceCampus.create(campus);
         return campus;
     }
