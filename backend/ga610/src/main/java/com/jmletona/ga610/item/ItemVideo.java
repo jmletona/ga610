@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ItemVideo implements IItem{
-    Integer idVideo;
-    String url;
-    String idPerson;
-    String created;
+    private Integer idVideo;
+    private String url;
+    private String idPerson;
+    private String created;
 }
