@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -26,5 +27,5 @@ public class SocialNetwork {
     private Integer idPerson;
 
     @Column(name = "created")
-    private Date created;
+    private Timestamp created;
 }
