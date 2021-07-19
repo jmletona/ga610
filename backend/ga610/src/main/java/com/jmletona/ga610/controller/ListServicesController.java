@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/country")
 public class ListServicesController {
 
     @Autowired
@@ -41,25 +41,6 @@ public class ListServicesController {
 
     @Autowired
     private ReviewService reviewService;
-
-    /*@GetMapping("/{country}")
-    public String getAllServices(Model model, @PathVariable("country") String country){
-        List<String> countries = new ArrayList<>();
-        List<Campus> allCampus = campusService.findAll();
-        for(Campus campus : allCampus){
-            if(!countries.contains(campus.getCountry())){
-                countries.add(campus.getCountry());
-                System.out.println(campus.getCountry());
-            }
-        }
-
-        List<Service> allServices = serviceService.findAll();
-        model.addAttribute("countries", countries);
-        model.addAttribute("services", allServices);
-        model.addAttribute("country", country);
-
-        return "list-services";
-    }*/
 
     @GetMapping("/{country}")
     public ResponseApi<ItemCountryServices> getServicesByCountry(@PathVariable(name = "country") String country){
