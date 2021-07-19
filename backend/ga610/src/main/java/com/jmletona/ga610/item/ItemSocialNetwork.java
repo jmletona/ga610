@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ItemSocialNetwork implements IItem{
-    Integer idSocialNetwork;
-    String url;
-    String type;
-    String person;
-    String created;
+    private Integer idSocialNetwork;
+    private String url;
+    private String type;
+    private String idPerson;
+    private String created;
 }

@@ -8,15 +8,19 @@ import com.jmletona.ga610.service.SocialNetworkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/socialNetworks")
+@RequestMapping("/socialnetworks")
 public class SocialNetworkController {
+
     @Autowired
     private SocialNetworkService socialNetworkService;
 
+    @GetMapping
     public ResponseApi<List<ItemSocialNetwork>> getAllSocialNetworks(){
         boolean success = false;
         String message = "No Social Network found";
@@ -31,16 +35,19 @@ public class SocialNetworkController {
     }
 
     public List<ItemSocialNetwork> showAllSocialNetworks(List<SocialNetwork> socialNetworkList, List<ItemSocialNetwork> itemSocialNetworkList){
-        for(SocialNetwork socialNetwork : socialNetworkList)
-            itemSocialNetworkList.add(showSocialNetwork(socialNetwork));
+        for(SocialNetwork socialNetwork : socialNetworkList){
+            ItemSocialNetwork itemSocialNetwork = new ItemSocialNetwork();
+            itemSocialNetworkList.add(showSocialNetwork(socialNetwork, itemSocialNetwork));
+        }
         return itemSocialNetworkList;
     }
 
-    public ItemSocialNetwork showSocialNetwork(SocialNetwork socialNetwork){
-        ItemSocialNetwork itemSocialNetwork = new ItemSocialNetwork();
+    public ItemSocialNetwork showSocialNetwork(SocialNetwork socialNetwork, ItemSocialNetwork itemSocialNetwork){
         itemSocialNetwork.setIdSocialNetwork(socialNetwork.getIdSocialNetwork());
         itemSocialNetwork.setUrl(socialNetwork.getUrl());
         itemSocialNetwork.setType(socialNetwork.getType());
+        itemSocialNetwork.setIdPerson(socialNetwork.getIdPerson().toString());
+        itemSocialNetwork.setCreated(socialNetwork.getCreated().toString());
         return itemSocialNetwork;
     }
 
@@ -49,10 +56,11 @@ public class SocialNetworkController {
         boolean success = false;
         String message = "Error";
         ItemSocialNetwork itemSocialNetwork = new ItemSocialNetwork();
+        SocialNetwork socialNetwork = new SocialNetwork();
         try {
-            SocialNetwork socialNetwork = createSocialNetwork(socialNetworkDTO);
+            socialNetwork = createSocialNetwork(socialNetwork, socialNetworkDTO);
             if (socialNetwork != null){
-                itemSocialNetwork = showSocialNetwork(socialNetwork);
+                itemSocialNetwork = showSocialNetwork(socialNetwork, itemSocialNetwork);
                 success = true;
                 message = "SocialNetwork created successfully";
             }
@@ -63,11 +71,11 @@ public class SocialNetworkController {
         return new ResponseApi<>(success, message, itemSocialNetwork);
     }
 
-    public SocialNetwork createSocialNetwork(SocialNetworkDTO socialNetworkDTO){
-        SocialNetwork socialNetwork = new SocialNetwork();
+    public SocialNetwork createSocialNetwork(SocialNetwork socialNetwork, SocialNetworkDTO socialNetworkDTO){
         socialNetwork.setUrl(socialNetworkDTO.getUrl());
         socialNetwork.setType(socialNetworkDTO.getType());
-        //agregar persona
+        socialNetwork.setIdPerson(socialNetworkDTO.getIdPerson());
+        socialNetwork.setCreated(Timestamp.valueOf(LocalDateTime.now()));
         return socialNetworkService.create(socialNetwork);
     }
 
@@ -75,11 +83,12 @@ public class SocialNetworkController {
     public ResponseApi<ItemSocialNetwork> update(@RequestBody SocialNetworkDTO socialNetworkDTO){
         boolean success = false;
         String message = "Error updating social Network";
+        SocialNetwork socialNetwork = new SocialNetwork();
         ItemSocialNetwork itemSocialNetwork = new ItemSocialNetwork();
         try {
-            SocialNetwork socialNetwork = updateSocialNetwork(socialNetworkDTO);
+            socialNetwork = updateSocialNetwork(socialNetwork, socialNetworkDTO);
             if (socialNetwork != null){
-                itemSocialNetwork = showSocialNetwork(socialNetwork);
+                itemSocialNetwork = showSocialNetwork(socialNetwork, itemSocialNetwork);
                 success = true;
                 message = "Social Network updated successfully";
             }
@@ -90,11 +99,10 @@ public class SocialNetworkController {
         return new ResponseApi<>(success, message, itemSocialNetwork);
     }
 
-    public SocialNetwork updateSocialNetwork(SocialNetworkDTO socialNetworkDTO){
-        SocialNetwork socialNetwork = new SocialNetwork();
+    public SocialNetwork updateSocialNetwork(SocialNetwork socialNetwork, SocialNetworkDTO socialNetworkDTO){
+        socialNetwork.setIdSocialNetwork(socialNetworkDTO.getIdSocialNetwork());
         socialNetwork.setUrl(socialNetworkDTO.getUrl());
         socialNetwork.setType(socialNetworkDTO.getType());
-        //agregar persona
         return socialNetworkService.update(socialNetwork);
     }
 
@@ -103,11 +111,12 @@ public class SocialNetworkController {
         boolean success = false;
         String message = "No social network found";
         ItemSocialNetwork itemSocialNetwork = new ItemSocialNetwork();
+        List<ItemSocialNetwork> itemSocialNetworkList = new ArrayList<>();
         SocialNetwork socialNetwork = socialNetworkService.findById(idSocialNetwork);
         if (socialNetwork != null){
             success = true;
             message = "Social Network found";
-            itemSocialNetwork = showSocialNetwork(socialNetwork);
+            itemSocialNetwork = showSocialNetwork(socialNetwork, itemSocialNetwork);
         }
         return new ResponseApi<>(success, message, itemSocialNetwork);
     }

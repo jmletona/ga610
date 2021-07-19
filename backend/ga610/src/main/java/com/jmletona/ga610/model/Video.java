@@ -24,8 +24,4 @@ public class Video {
 
     @Column(name = "id_person")
     private Integer idPerson;
-
-    /*@ManyToOne
-    @JoinColumn(name = "id_person")
-    private Person person;*/
 }
