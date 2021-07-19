@@ -1,9 +1,16 @@
 package com.jmletona.ga610.controller;
 
+import com.jmletona.ga610.item.ItemCountryServices;
+import com.jmletona.ga610.item.ItemListService;
+import com.jmletona.ga610.item.ItemServicePersons;
+import com.jmletona.ga610.model.Campus;
 import com.jmletona.ga610.model.Person;
-import com.jmletona.ga610.repository.IPersonRepository;
+import com.jmletona.ga610.model.Review;
+import com.jmletona.ga610.model.Service;
+import com.jmletona.ga610.responses.ResponseApi;
 import com.jmletona.ga610.service.CampusService;
 import com.jmletona.ga610.service.PersonService;
+import com.jmletona.ga610.service.ReviewService;
 import com.jmletona.ga610.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +20,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-@Controller
-@RequestMapping("/")
+@RestController
+@RequestMapping("/country")
 public class ListServicesController {
 
     @Autowired
@@ -29,33 +39,74 @@ public class ListServicesController {
     @Autowired
     private CampusService campusService;
 
+    @Autowired
+    private ReviewService reviewService;
 
-    /*public List<Person> getAllPerson(@PathVariable("country") String country, @PathVariable("idService") Integer idService){
-        System.out.println(country + " " + idService);
-        List<Person> allPersons = personService.findAll();
-        List<Person> personServiceList = new ArrayList<>();
-        System.out.println(allPersons.size());
-        for (Person person : allPersons){
-            if(person.getServices().contains(serviceService.findById(idService)) && campusService.findById(person.getIdCampus()).getCountry().equals(country)){
-                personServiceList.add(person);
-            }
+    @GetMapping("/{country}")
+    public ResponseApi<ItemCountryServices> getServicesByCountry(@PathVariable(name = "country") String country){
+        boolean success = false;
+        String message = "No services found";
+
+        ItemCountryServices countryServices = new ItemCountryServices();
+        countryServices.setCountryList(campusService.findCountries());
+        countryServices.setCurrentCountry(country);
+        countryServices.setServices(serviceService.findByCountry(country));
+
+        if(countryServices.getServices().size() > 0){
+            success = true;
+            message = "Services found";
         }
-        return personServiceList;
-    }*/
-    @GetMapping("/services/{country}/{idService}")
-    public String getAllPerson(Model model, @PathVariable("country") String country, @PathVariable("idService") Integer idService){
-        System.out.println(country + " " + idService);
-        List<Person> allPersons = personService.findAll();
-        List<Person> personServiceList = new ArrayList<>();
-        System.out.println(allPersons.size());
-        for (Person person : allPersons){
-            if(person.getServices().contains(serviceService.findById(idService)) && campusService.findById(person.getIdCampus()).getCountry().equals(country)){
-                personServiceList.add(person);
-            }
-        }
-        System.out.println(personServiceList);
-        model.addAttribute("lista", personServiceList);
-        return "list-person";
+
+        return new ResponseApi<>(success, message, countryServices);
     }
 
+    @GetMapping("/{country}/service/{idService}")
+    public ResponseApi<ItemServicePersons> getAllPerson(Model model, @PathVariable("country") String country, @PathVariable("idService") Integer idService){
+        boolean success = false;
+        String message = "No persons found";
+        List<ItemListService> personServiceList = new ArrayList<>();
+
+        for (Person p : personService.findByCountryAndService(country, idService)){
+            ItemListService personItem = new ItemListService();
+            personItem.setIdPerson(p.getIdPerson());
+            personItem.setName(p.getName());
+            personItem.setLastname(p.getLastname());
+            personItem.setCompany(p.getCompany());
+            personItem.setRanking(getAvgRanking(p.getIdPerson()));
+            personServiceList.add(personItem);
+        }
+
+        if (personServiceList.size() > 0){
+            success = true;
+            message = "Found " + personServiceList.size() + " records";
+        }
+
+        ItemServicePersons servicePersons = new ItemServicePersons();
+        servicePersons.setService(serviceService.findById(idService));
+        servicePersons.setCountry(country);
+        servicePersons.setPersons(personServiceList);
+
+        return new ResponseApi<>(success, message, servicePersons);
+    }
+
+    private static DecimalFormat df2 = new DecimalFormat("#.#");
+
+    public String getAvgRanking(Integer idPerson){
+        List<Review> personReviews = reviewService.findByIdPersonAndStatus(idPerson, "APPROVED");
+
+        Map<String, Integer> values = new LinkedHashMap<>();
+        values.put("POOR", 1);
+        values.put("FAIR", 2);
+        values.put("GOOD", 3);
+        values.put("VERY GOOD", 4);
+        values.put("EXCELLENT", 5);
+
+        float sum = 0;
+
+        for(Review r : personReviews){
+            sum += values.get(r.getRanking());
+        }
+
+        return personReviews.size() == 0 ? "0.0" : df2.format(sum / personReviews.size());
+    }
 }

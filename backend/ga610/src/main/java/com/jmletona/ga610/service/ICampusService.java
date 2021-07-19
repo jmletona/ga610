@@ -13,6 +13,8 @@ public interface ICampusService {
 
     Campus findById(Integer id);
 
+    List<String> findCountries();
+
     List<Campus> findAll();
 
     void delete(Integer id);

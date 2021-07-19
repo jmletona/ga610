@@ -10,9 +10,12 @@ import java.util.List;
 @Repository
 public interface IServiceRepository extends JpaRepository<Service,Integer> {
 
-    @Query(value="select distinct s.* from campus c join country co on c.country_id=co.id"+
-                 " join campus_service cs on cs.campus_id = c.id_campus" +
-                 " join service s on s.id_service=cs.service_id" +
-                 " where co.id = ?1", nativeQuery=true)
-    public List<Service> onFetchServices(Integer id);
+    @Query(value = "SELECT DISTINCT s.* FROM service s\n" +
+            "INNER JOIN person_service ps ON ps.id_service = s.id_service\n" +
+            "INNER JOIN person p ON p.id_person = ps.id_person\n" +
+            "WHERE p.id_person IN (SELECT p.id_person FROM person p\n" +
+            "\t\t\t\t\tINNER JOIN campus c ON c.id_campus = p.id_campus\n" +
+            "\t\t\t\t\tWHERE c.country = ?1)", nativeQuery = true)
+    List<Service> findByCountry(String country);
+
 }

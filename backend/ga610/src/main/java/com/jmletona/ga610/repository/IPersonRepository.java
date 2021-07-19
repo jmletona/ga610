@@ -10,6 +10,12 @@ import java.util.List;
 @Repository
 public interface IPersonRepository extends JpaRepository<Person, Integer> {
 
-    @Query("select p from Person p ")
-    public List<Person> findAllPeopleByService(Integer serviceId);
+    @Query(value = "SELECT p.* FROM person p\n" +
+            "INNER JOIN campus c ON c.id_campus = p.id_campus\n" +
+            "INNER JOIN person_service ps ON ps.id_person = p.id_person\n" +
+            "INNER JOIN service s ON s.id_service = ps.id_service\n" +
+            "WHERE c.country = ?1\n" +
+            "AND s.id_service = ?2", nativeQuery = true)
+    List<Person> findByCountryAndService(String country, Integer idService);
+
 }

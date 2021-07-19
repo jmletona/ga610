@@ -41,6 +41,11 @@ public class CampusService implements ICampusService {
     }
 
     @Override
+    public List<String> findCountries(){
+        return campusRepository.findCountries();
+    }
+
+    @Override
     public List<Campus> findAll() {
         return campusRepository.findAll();
     }

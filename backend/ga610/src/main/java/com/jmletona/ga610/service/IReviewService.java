@@ -14,5 +14,7 @@ public interface IReviewService {
 
     List<Review> findAll();
 
+    List<Review> findByIdPersonAndStatus(Integer idPerson, String status);
+
     void delete(Integer id);
 }

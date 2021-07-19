@@ -12,5 +12,7 @@ public class ReviewDTO {
     private String ranking;
     private String status;
     private String comment;
+    private Integer idPerson;
+    private Integer idUser;
     private Date created;
 }

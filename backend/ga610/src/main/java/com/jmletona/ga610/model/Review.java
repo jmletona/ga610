@@ -7,12 +7,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "REVIEW")
+@Table(name = "review")
 @Getter
 @Setter
 public class Review {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_review")
     private int idReview;
 
@@ -25,10 +25,11 @@ public class Review {
     @Column(name = "review_comment")
     private String comment;
 
-    /*
-    private Person person;
-    private CampusUser user;
-    */
+    @Column(name = "id_person")
+    private Integer idPerson;
+
+    @Column(name = "id_user")
+    private Integer idUser;
 
     @Column(name = "created")
     private Date created;

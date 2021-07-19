@@ -41,19 +41,24 @@ public class Person {
     @Column(name = "id_campus")
     private Integer idCampus;
 
-
-
     @ManyToMany
     @JoinTable(name="person_service",
     joinColumns = @JoinColumn(name = "id_person"),
     inverseJoinColumns = @JoinColumn(name="id_service"))
     List<Service> services;
 
-    /*@ManyToOne
-    @JoinColumn(name = "id_campus")
-    private Campus campus;*/
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_person")
+    //@JoinTable(name="video", joinColumns = @JoinColumn(name = "id_person"))
+    private List<Video> videoList;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="id_person")
-    private List<Video> videoList;
+    //@JoinTable(name="social_network", joinColumns = @JoinColumn(name = "id_person"))
+    private List<SocialNetwork> socialNetworkList;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_person")
+    //@JoinTable(name="review", joinColumns = @JoinColumn(name = "id_person"))
+    private List<Review> reviewList;
 }
