@@ -8,6 +8,8 @@ import com.jmletona.ga610.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
+    @GetMapping
     public ResponseApi<List<ItemReview>> getAllReviews(){
         boolean success = false;
         String message = "No Review found";
@@ -42,6 +45,9 @@ public class ReviewController {
         itemReview.setRanking(review.getRanking());
         itemReview.setStatus(review.getStatus());
         itemReview.setComment(review.getComment());
+        itemReview.setPerson(review.getIdPerson().toString());
+        itemReview.setUser(review.getIdUser().toString());
+        itemReview.setCreated(review.getCreated().toString());
         return itemReview;
     }
 
@@ -69,8 +75,9 @@ public class ReviewController {
         review.setRanking(reviewDTO.getRanking());
         review.setStatus(reviewDTO.getStatus());
         review.setComment(reviewDTO.getComment());
-        //agregar persona
-        //agregar user
+        review.setIdPerson(reviewDTO.getIdPerson());
+        review.setIdUser(reviewDTO.getIdUser());
+        review.setCreated(Timestamp.valueOf(LocalDateTime.now()));
         return reviewService.create(review);
     }
 
@@ -95,11 +102,10 @@ public class ReviewController {
 
     public Review updateReview(ReviewDTO reviewDTO){
         Review review = new Review();
+        review.setIdReview(reviewDTO.getIdReview());
         review.setRanking(reviewDTO.getRanking());
         review.setStatus(reviewDTO.getStatus());
         review.setComment(reviewDTO.getComment());
-        //agregar persona
-        //agregar user
         return reviewService.update(review);
     }
 

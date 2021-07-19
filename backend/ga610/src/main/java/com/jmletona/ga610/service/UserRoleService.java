@@ -28,7 +28,7 @@ public class UserRoleService implements IUserRoleService {
     public UserRole update(UserRole userRoleToUpdate) {
         UserRole user = findById(userRoleToUpdate.getRoleId());
         user.setRoleType(userRoleToUpdate.getRoleType());
-        user.setUsers(userRoleToUpdate.getUsers());
+        //user.setUsers(userRoleToUpdate.getUsers());
         return userRoleRepository.save(user);
     }
 

@@ -9,6 +9,8 @@ import java.util.Date;
 @Setter
 public class ReviewDTO {
     private Integer idReview;
+    private Integer idPerson;
+    private Integer idUser;
     private String ranking;
     private String status;
     private String comment;
