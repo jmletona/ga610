@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,7 +15,5 @@ public class ItemCampus {
     private Integer campusId;
     private String name;
     private String country;
-    private LocalDate createdAt;
-    private List<CampusUser> users;
-    private List<Person> People;
+    private String createdAt;
 }

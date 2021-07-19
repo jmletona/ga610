@@ -33,11 +33,4 @@ public class CampusUser {
     @Column(name = "id_campus")
     private Integer idCampus;
 
-    /*@ManyToOne
-    @JoinColumn(name = "id_role")
-    private UserRole userRole;*/
-
-    /*@ManyToOne
-    @JoinColumn(name = "id_campus")
-    private Campus campus;*/
 }
