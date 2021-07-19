@@ -21,7 +21,6 @@ public class Person {
     @Column(name = "id_person")
     private Integer idPerson;
 
-
     @Column(name ="is_active")
     private Boolean active;
     @Column(name = "company")
