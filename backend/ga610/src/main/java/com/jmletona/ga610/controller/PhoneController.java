@@ -8,6 +8,8 @@ import com.jmletona.ga610.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +48,7 @@ public class PhoneController {
         itemPhone.setNumber(String.valueOf(phone.getNumber()));
         itemPhone.setType(phone.getType());
         itemPhone.setIdPerson(phone.getIdPerson());
+        itemPhone.setUpdated(phone.getUpdated().toString());
         return itemPhone;
     }
 
@@ -74,6 +77,7 @@ public class PhoneController {
         phone.setNumber(phoneDTO.getNumber());
         phone.setType(phoneDTO.getPhoneType());
         phone.setIdPerson(phoneDTO.getIdPerson());
+        phone.setUpdated(Timestamp.from(Instant.now()));
         return phoneService.create(phone);
     }
 
