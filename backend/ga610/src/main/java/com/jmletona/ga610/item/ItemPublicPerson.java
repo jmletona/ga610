@@ -1,5 +1,6 @@
 package com.jmletona.ga610.item;
 
+import com.jmletona.ga610.model.Phone;
 import com.jmletona.ga610.model.Review;
 import com.jmletona.ga610.model.SocialNetwork;
 import com.jmletona.ga610.model.Video;
@@ -22,6 +23,7 @@ public class ItemPublicPerson implements IItem{
     String campus;
     List<SocialNetwork> socialNetworks;
     List<Video> videos;
+    List<Phone> phones;
     List<String> gallery;
     List<Review> reviews;
 }

@@ -49,16 +49,17 @@ public class Person {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="id_person")
-    //@JoinTable(name="video", joinColumns = @JoinColumn(name = "id_person"))
+    private List<Phone> phoneList;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_person")
     private List<Video> videoList;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="id_person")
-    //@JoinTable(name="social_network", joinColumns = @JoinColumn(name = "id_person"))
     private List<SocialNetwork> socialNetworkList;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="id_person")
-    //@JoinTable(name="review", joinColumns = @JoinColumn(name = "id_person"))
     private List<Review> reviewList;
 }

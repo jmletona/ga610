@@ -5,6 +5,7 @@ import com.jmletona.ga610.model.Person;
 import com.jmletona.ga610.responses.ResponseApi;
 import com.jmletona.ga610.service.PersonService;
 import com.jmletona.ga610.service.ReviewService;
+import com.jmletona.ga610.util.FileSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,34 +43,14 @@ public class PublicPersonController {
             publicPerson.setCampus(person.getIdCampus().toString());
             publicPerson.setCompany(person.getCompany());
             publicPerson.setDescription(person.getDescription());
-            System.out.println("VIDEOS");
             publicPerson.setVideos(person.getVideoList());
-            System.out.println("SOCIAL NETWORKS");
             publicPerson.setSocialNetworks(person.getSocialNetworkList());
+            publicPerson.setPhones(person.getPhoneList());
             publicPerson.setCreated(person.getCreated().toString());
-            publicPerson.setGallery(getGallery(person.getIdPerson()));
+            publicPerson.setGallery(FileSearch.getGallery("src/main/resources/persons/"+person.getIdPerson()));
             publicPerson.setReviews(reviewService.findByIdPersonAndStatus(person.getIdPerson(), "APPROVED"));
         }
 
         return new ResponseApi<>(success, message, !success ? null : publicPerson);
-    }
-
-    private List<String> getGallery(Integer idPerson){
-        String sourcePath = "src/main/resources/persons/"+idPerson;
-        List<File> files = new ArrayList<>();
-        List<String> fileNames = new ArrayList<>();
-        File f = new File(sourcePath);
-        if (f.exists()) {
-            if (f.isDirectory()){
-                //fileNames = new ArrayList<>(Arrays.asList(Objects.requireNonNull(f.list()))); //Just the file names
-                files = new ArrayList<>(Arrays.asList(Objects.requireNonNull(f.listFiles())));
-            }
-        }
-
-        for (File file : files){
-            fileNames.add(file.getPath());
-        }
-
-        return fileNames;
     }
 }

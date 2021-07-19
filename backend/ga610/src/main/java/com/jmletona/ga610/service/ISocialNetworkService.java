@@ -14,5 +14,7 @@ public interface ISocialNetworkService {
 
     List<SocialNetwork> findAll();
 
+    List<String> findSocialNetworkTypes();
+
     void delete(Integer id);
 }

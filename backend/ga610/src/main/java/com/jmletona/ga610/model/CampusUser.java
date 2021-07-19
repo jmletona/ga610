@@ -27,11 +27,17 @@ public class CampusUser {
     @Column(name = "created")
     private LocalDate createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "id_role")
-    private UserRole userRole;
+    @Column(name = "id_role")
+    private Integer idRole;
 
-    @ManyToOne
+    @Column(name = "id_campus")
+    private Integer idCampus;
+
+    /*@ManyToOne
+    @JoinColumn(name = "id_role")
+    private UserRole userRole;*/
+
+    /*@ManyToOne
     @JoinColumn(name = "id_campus")
-    private Campus campus;
+    private Campus campus;*/
 }

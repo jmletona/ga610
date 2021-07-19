@@ -39,6 +39,11 @@ public class PhoneService implements IPhoneService{
     }
 
     @Override
+    public List<String> findPhoneTypes(){
+        return phoneRepository.findPhoneTypes();
+    }
+
+    @Override
     public void delete(Integer id) {
         phoneRepository.deleteById(id);
     }

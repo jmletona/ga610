@@ -38,6 +38,11 @@ public class SocialNetworkService implements ISocialNetworkService{
     }
 
     @Override
+    public List<String> findSocialNetworkTypes(){
+        return socialNetworkRepository.findSocialNetworkTypes();
+    }
+
+    @Override
     public void delete(Integer id) {
         socialNetworkRepository.deleteById(id);
     }
