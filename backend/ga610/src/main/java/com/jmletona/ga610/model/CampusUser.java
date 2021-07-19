@@ -3,7 +3,9 @@ package com.jmletona.ga610.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "campus_user")
@@ -11,7 +13,7 @@ import java.time.LocalDate;
 public class CampusUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
     private Integer userId;
 
@@ -24,14 +26,18 @@ public class CampusUser {
     @Column(name = "user_password")
     private String userPassword;
 
+    @Column(name ="id_campus")
+    private Integer idCampus;
+
+    @Column(name ="id_role")
+    private Integer idRole;
+
     @Column(name = "created")
-    private LocalDate createdAt;
+    private Timestamp createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "id_role")
-    private UserRole userRole;
 
-    @ManyToOne
-    @JoinColumn(name = "id_campus")
-    private Campus campus;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_user")
+    private List<Review> reviewList;
+
 }

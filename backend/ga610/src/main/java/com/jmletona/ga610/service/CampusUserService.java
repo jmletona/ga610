@@ -34,8 +34,8 @@ public class CampusUserService implements ICampusUserService {
         camapusUser.setEmail(campusUserToUpdate.getEmail());
         camapusUser.setCreatedAt(campusUserToUpdate.getCreatedAt());
         camapusUser.setUserPassword(campusUserToUpdate.getUserPassword());
-        camapusUser.setUserRole(campusUserToUpdate.getUserRole());
-        camapusUser.setCampus(campusUserToUpdate.getCampus());
+        //camapusUser.setUserRole(campusUserToUpdate.getUserRole());
+        //camapusUser.setCampus(campusUserToUpdate.getCampus());
         return campusUserRepository.save(camapusUser);
     }
 
