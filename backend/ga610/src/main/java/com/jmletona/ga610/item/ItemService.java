@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class ItemService {
+public class ItemService implements IItem {
     private Integer serviceId;
 
     private String serviceName;
