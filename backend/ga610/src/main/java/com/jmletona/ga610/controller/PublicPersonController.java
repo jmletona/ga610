@@ -41,7 +41,7 @@ public class PublicPersonController {
             publicPerson.setSocialNetworks(person.getSocialNetworkList());
             publicPerson.setPhones(person.getPhoneList());
             publicPerson.setCreated(person.getCreated().toString());
-            publicPerson.setGallery(FileSearch.getGallery("src/main/resources/persons/"+person.getIdPerson()));
+            publicPerson.setGallery(person.getImageList());
             publicPerson.setReviews(reviewService.findByIdPersonAndStatus(person.getIdPerson(), "APPROVED"));
         }
 

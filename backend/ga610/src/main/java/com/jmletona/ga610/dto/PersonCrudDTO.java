@@ -13,6 +13,6 @@ public class PersonCrudDTO {
     private List<VideoDTO> videos;
     private List<PhoneDTO> phones;
     private List<SocialNetworkDTO> socialNetworks;
+    private List<ImageDTO> gallery;
     private List<ServiceDTO> services;
-
 }
