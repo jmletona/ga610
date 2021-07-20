@@ -66,3 +66,51 @@ create POST http://localhost:9090/videos
 ************************************************************
 ******************  VIDEO ENDPOINTS ************************
 ************************************************************
+
+************************************************************
+PERSON CREATE (/persons/new)
+************************************************************
+{
+    "person":{
+        "active":true,
+        "company":"Applaudo",
+        "description":"I am a developer",
+        "name":"John",
+        "lastname":"Doe",
+        "address":"My house",
+        "idCampus":1
+    },
+    "videos":[
+        {
+            "url":"youtube.com"
+        },
+        {
+            "url":"google.com"
+        }
+    ],
+    "phones":[
+        {
+            "areaCode":"503",
+            "number":"12345678",
+            "phoneType":"CELLPHONE"
+        }
+    ],
+    "socialNetworks":[
+        {
+            "url":"facebook.com",
+            "type":"FACEBOOK"
+        },
+        {
+            "url":"twitter.com",
+            "type":"TWITTER"
+        }
+    ],
+    "services":[
+        {
+            "serviceId":1
+        },
+        {
+            "serviceId":"3"
+        }
+    ]
+}
