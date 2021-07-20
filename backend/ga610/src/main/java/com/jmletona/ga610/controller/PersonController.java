@@ -84,26 +84,6 @@ public class PersonController {
         return new ResponseApi<>(true, "Data retrieved", personCrud);
     }
 
-    /*@PostMapping("/new")
-    public ResponseApi<ItemPerson> create(@RequestBody PersonDTO personDTO){
-        boolean success = false;
-        String message = "Error";
-        Person person = new Person();
-        ItemPerson itemPerson = new ItemPerson();
-        try{
-            person=createPerson(person, personDTO);
-            if(person!=null){
-                itemPerson = showPerson(person, itemPerson);
-                success = true;
-                message = "Person was created successfully";
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-            message = ex.getMessage();
-        }
-        return new ResponseApi<>(success, message, itemPerson);
-    }*/
-
     @PostMapping("/new")
     public ResponseApi<ItemPerson> create(@RequestBody PersonCrudDTO personCrudDTO) {
         boolean success = false;
