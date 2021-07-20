@@ -1,11 +1,12 @@
 package com.jmletona.ga610.controller;
 
-import com.jmletona.ga610.dto.PersonCrudDTO;
-import com.jmletona.ga610.dto.PersonDTO;
-import com.jmletona.ga610.dto.VideoDTO;
+import com.jmletona.ga610.dto.*;
 import com.jmletona.ga610.item.ItemPerson;
 import com.jmletona.ga610.item.ItemPersonCrud;
 import com.jmletona.ga610.model.Person;
+import com.jmletona.ga610.model.Phone;
+import com.jmletona.ga610.model.SocialNetwork;
+import com.jmletona.ga610.model.Video;
 import com.jmletona.ga610.responses.ResponseApi;
 import com.jmletona.ga610.service.*;
 import com.jmletona.ga610.util.FileSearch;
@@ -33,30 +34,34 @@ public class PersonController {
     @Autowired
     private ServiceService serviceService;
 
+    @Autowired
+    private VideoService videoService;
+
+    @Autowired
+    private PersonServiceService personServiceService;
+
     @GetMapping
-    public ResponseApi<List<ItemPerson>> getAllPersons() {
+    public ResponseApi<List<ItemPerson>> getAllPersons(){
         boolean success = false;
         String message = "No Person found";
         List<ItemPerson> itemPersonList = new ArrayList<>();
         List<Person> personList = personService.findAll();
-        if (!personList.isEmpty()) {
+        if(!personList.isEmpty()){
             success = true;
             message = "Person found";
             itemPersonList = showAllPersons(personList, itemPersonList);
         }
         return new ResponseApi<>(success, message, itemPersonList);
     }
-
-    public List<ItemPerson> showAllPersons(List<Person> personList, List<ItemPerson> itemPersonList) {
-        for (Person person : personList) {
+    public List<ItemPerson> showAllPersons(List<Person> personList, List<ItemPerson> itemPersonList){
+        for(Person person: personList){
             ItemPerson itemPerson = new ItemPerson();
             itemPerson = showPerson(person, itemPerson);
             itemPersonList.add(itemPerson);
         }
         return itemPersonList;
     }
-
-    public ItemPerson showPerson(Person person, ItemPerson itemPerson) {
+    public ItemPerson showPerson(Person person, ItemPerson itemPerson){
         itemPerson.setIdPerson(person.getIdPerson());
         itemPerson.setActive(person.getActive());
         itemPerson.setCompany(person.getCompany());
@@ -69,12 +74,12 @@ public class PersonController {
         itemPerson.setPhones(person.getPhoneList());
         itemPerson.setSocialNetworks(person.getSocialNetworkList());
         if (person.getCreated() != null) itemPerson.setCreated(person.getCreated().toString());
-        itemPerson.setGallery(FileSearch.getGallery("src/main/resources/persons/" + person.getIdPerson()));
+        itemPerson.setGallery(FileSearch.getGallery("src/main/resources/persons/"+person.getIdPerson()));
         return itemPerson;
     }
 
     @GetMapping("/new")
-    public ResponseApi<ItemPersonCrud> setupCreate() {
+    public ResponseApi<ItemPersonCrud> setupCreate(){
         ItemPersonCrud personCrud = new ItemPersonCrud();
         personCrud.setCampusList(campusService.findAll());
         personCrud.setPhoneTypes(phoneService.findPhoneTypes());
@@ -84,15 +89,48 @@ public class PersonController {
         return new ResponseApi<>(true, "Data retrieved", personCrud);
     }
 
-    /*@PostMapping("/new")
-    public ResponseApi<ItemPerson> create(@RequestBody PersonDTO personDTO){
+    @PostMapping("/new")
+    public ResponseApi<ItemPerson> create(@RequestBody PersonCrudDTO personCrudDTO){
         boolean success = false;
         String message = "Error";
         Person person = new Person();
         ItemPerson itemPerson = new ItemPerson();
         try{
-            person=createPerson(person, personDTO);
+            person=createPerson(person, personCrudDTO.getPerson());
             if(person!=null){
+                for (VideoDTO v : personCrudDTO.getVideos()){
+                    Video video = new Video();
+                    video.setUrl(v.getUrl());
+                    video.setIdPerson(person.getIdPerson());
+                    videoService.create(video);
+                }
+
+                for (PhoneDTO p : personCrudDTO.getPhones()){
+                    Phone phone = new Phone();
+                    phone.setAreaCode(p.getAreaCode());
+                    phone.setNumber(p.getNumber());
+                    phone.setType(p.getPhoneType());
+                    phone.setIdPerson(person.getIdPerson());
+                    phoneService.create(phone);
+                }
+
+                for (SocialNetworkDTO sn : personCrudDTO.getSocialNetworks()){
+                    SocialNetwork socialNetwork = new SocialNetwork();
+                    socialNetwork.setIdPerson(person.getIdPerson());
+                    socialNetwork.setUrl(sn.getUrl());
+                    socialNetwork.setType(sn.getType());
+                    socialNetworkService.create(socialNetwork);
+                }
+
+                for (ServiceDTO s : personCrudDTO.getServices()){
+                    com.jmletona.ga610.model.PersonService personServiceModel = new com.jmletona.ga610.model.PersonService();
+                    personServiceModel.setIdService(s.getServiceId());
+                    personServiceModel.setIdPerson(person.getIdPerson());
+                    personServiceService.create(personServiceModel);
+                }
+
+                //Aquí se guardan las imagenes...
+
                 itemPerson = showPerson(person, itemPerson);
                 success = true;
                 message = "Person was created successfully";
@@ -102,35 +140,9 @@ public class PersonController {
             message = ex.getMessage();
         }
         return new ResponseApi<>(success, message, itemPerson);
-    }*/
-
-    @PostMapping("/new")
-    public ResponseApi<ItemPerson> create(@RequestBody PersonCrudDTO personCrudDTO) {
-        boolean success = false;
-        String message = "Error";
-        Person person = new Person();
-        ItemPerson itemPerson = new ItemPerson();
-        try {
-            person = createPerson(person, personCrudDTO.getPerson());
-            if (person != null) {
-                VideoController videoController = new VideoController();
-
-                for (VideoDTO v : personCrudDTO.getVideos()) {
-                    //videoController.create(v);
-                }
-
-                itemPerson = showPerson(person, itemPerson);
-                success = true;
-                message = "Person was created successfully";
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            message = ex.getMessage();
-        }
-        return new ResponseApi<>(success, message, itemPerson);
     }
 
-    public Person createPerson(Person person, PersonDTO personDTO) {
+    public Person createPerson(Person person, PersonDTO personDTO){
         person.setActive(true);
         person.setCompany(personDTO.getCompany());
         person.setDescription(personDTO.getDescription());
@@ -143,14 +155,14 @@ public class PersonController {
     }
 
     @GetMapping("/update/{idPerson}")
-    public ResponseApi<ItemPersonCrud> setupUpdate(@PathVariable(name = "idPerson") Integer idPerson) {
+    public ResponseApi<ItemPersonCrud> setupUpdate(@PathVariable(name = "idPerson") Integer idPerson){
         boolean success = false;
         String message = "Person not found";
 
         ItemPersonCrud personCrud = new ItemPersonCrud();
         Person person = personService.findById(idPerson);
 
-        if (person != null) {
+        if (person != null){
             success = true;
             message = "Person found";
             personCrud.setPerson(showPerson(person, new ItemPerson()));
@@ -170,21 +182,20 @@ public class PersonController {
         String message = "Error updating Person";
         Person person = new Person();
         ItemPerson itemPerson = new ItemPerson();
-        try {
+        try{
             person = updatePerson(person, personDTO);
-            if (person != null) {
+            if(person!=null){
                 itemPerson = showPerson(person, itemPerson);
                 success = true;
                 message = "Person was updated successfully";
             }
-        } catch (Exception ex) {
+        }catch (Exception ex){
             ex.printStackTrace();
             message = ex.getMessage();
         }
         return new ResponseApi<>(success, message, itemPerson);
     }
-
-    public Person updatePerson(Person person, PersonDTO personDTO) {
+    public Person updatePerson(Person person, PersonDTO personDTO){
         person.setActive(personDTO.getActive());
         person.setCompany(personDTO.getCompany());
         person.setDescription(personDTO.getDescription());
@@ -195,23 +206,21 @@ public class PersonController {
         person = this.personService.update(person);
         return person;
     }
-
     @GetMapping("/{id}")
-    public ResponseApi<ItemPerson> findById(@PathVariable("id") Integer idPerson) {
+    public ResponseApi<ItemPerson> findById(@PathVariable("id") Integer idPerson){
         boolean success = false;
         String message = "No Person found";
         ItemPerson itemPerson = new ItemPerson();
         Person person = personService.findById(idPerson);
-        if (person != null) {
+        if(person!=null){
             itemPerson = showPerson(person, itemPerson);
             success = true;
             message = "Person found";
         }
         return new ResponseApi<>(success, message, itemPerson);
     }
-
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Integer idPerson) {
+    public void delete(@PathVariable("id") Integer idPerson){
         personService.delete(idPerson);
     }
 }
