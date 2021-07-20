@@ -12,7 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 // Import your library
-import { SlickCarouselModule } from 'ngx-slick-carousel';
+
 
 import { ROUTES } from './app.routes';
 import { PersonDetailComponent } from './components/person-detail/person-detail.component';
@@ -25,14 +25,6 @@ import { ServiceDetailComponent } from './components/service-detail/service-deta
     FooterComponent,
     HomeComponent,
     LoginComponent,
-<<<<<<< HEAD
-  ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(ROUTES, { useHash: false }),
-    AppRoutingModule,
-    SlickCarouselModule,
-=======
     PersonDetailComponent,
     ServiceDetailComponent
   ],
@@ -42,7 +34,6 @@ import { ServiceDetailComponent } from './components/service-detail/service-deta
     HttpClientModule,
     SlickCarouselModule,
     RouterModule.forRoot(ROUTES, {useHash:false})
->>>>>>> origin/josue
   ],
   providers: [],
   bootstrap: [AppComponent],
