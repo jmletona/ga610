@@ -11,5 +11,5 @@ import java.util.List;
 public class UserRoleDTO {
     private Integer roleId;
     private String roleType;
-    private List<CampusUser> users;
+
 }
