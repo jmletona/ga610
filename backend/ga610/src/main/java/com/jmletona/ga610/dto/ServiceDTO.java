@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.apache.tomcat.jni.Local;
 
 import javax.persistence.Column;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -16,5 +17,6 @@ public class ServiceDTO {
 
     private Integer serviceId;
     private String serviceName;
-   //private LocalDate createdAt;
+    private String urlImage;
+    private Timestamp createAt;
 }

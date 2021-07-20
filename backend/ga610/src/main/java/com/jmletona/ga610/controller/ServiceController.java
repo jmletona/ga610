@@ -1,27 +1,21 @@
 package com.jmletona.ga610.controller;
 
-import com.jmletona.ga610.dto.PersonDTO;
 import com.jmletona.ga610.dto.ServiceDTO;
-import com.jmletona.ga610.item.ItemPerson;
 import com.jmletona.ga610.item.ItemService;
-import com.jmletona.ga610.model.Person;
 import com.jmletona.ga610.model.Service;
 import com.jmletona.ga610.responses.ResponseApi;
-import com.jmletona.ga610.service.PersonService;
 import com.jmletona.ga610.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/services")
 public class ServiceController {
-
     @Autowired
     private ServiceService serviceService;
 
@@ -51,8 +45,8 @@ public class ServiceController {
     public ItemService showService(Service service, ItemService itemService) {
         itemService.setServiceId(service.getServiceId());
         itemService.setServiceName(service.getServiceName());
+        itemService.setUrlImage(service.getUrlImage());
         itemService.setCreatedAt(service.getCreatedAt().toString());
-
         return itemService;
     }
 
@@ -77,10 +71,9 @@ public class ServiceController {
     }
 
     public Service createService(Service service, ServiceDTO serviceDTO) {
-
-        //service.setServiceId(serviceDTO.getServiceId());
         service.setServiceName(serviceDTO.getServiceName());
         service.setCreatedAt(Timestamp.from(Instant.now()));
+        service.setUrlImage(serviceDTO.getUrlImage());
         service = this.serviceService.create(service);
         return service;
     }
@@ -106,9 +99,10 @@ public class ServiceController {
     }
 
     public Service updateService(Service service, ServiceDTO serviceDTO) {
+        service.setServiceId(serviceDTO.getServiceId());
         service.setServiceName(serviceDTO.getServiceName());
-        service = this.serviceService.update(service);
-        return service;
+        service.setUrlImage(serviceDTO.getUrlImage());
+        return serviceService.update(service);
     }
 
     @GetMapping("/{id}")
