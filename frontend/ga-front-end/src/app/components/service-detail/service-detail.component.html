@@ -4,7 +4,7 @@
             - 04 -<br />October<br />2013
         </div>
     </div>
-    <h4>The Dower Farm <span class="comments">3 comments</span></h4>
+    <h4>{{person.name}} <span class="comments">{{person.ranking}}</span></h4>
     <div class="dots blogdots">
     </div>
     <p>
@@ -24,7 +24,7 @@
         practically after his work himself; was up with the lark and out with his men, as a good farmer ought to be.
         Out-of-doors he was the keen, active, thorough farmer; indoors he lived as a gentleman. He had four children:
         three
-        boys and one girl ... <a href="#" class="saymore">Read more</a>
+        boys and one girl ... <a [routerLink]="['/person-detail/',person.idPerson]" class="saymore">Read more</a>
     </p>
     <div class="hr"></div>
 </div>

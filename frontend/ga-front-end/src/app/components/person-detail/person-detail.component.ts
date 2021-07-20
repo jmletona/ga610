@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-person-detail',
@@ -7,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonDetailComponent implements OnInit {
 
+  person:any = {};
   slides = [342, 453, 846, 855, 234, 564, 744, 243];
   slideConfig = {
     "slidesToShow": 4,
@@ -17,11 +20,16 @@ export class PersonDetailComponent implements OnInit {
     "infinite": false
   };
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute, private http:HttpClient) { }
 
   ngOnInit(): void {
-  }
+    let param:number = this.activatedRoute.snapshot.params.personId;
 
+    this.http.get("http://localhost:9090/persons/"+param)
+        .subscribe((data:any) => {
+          this.person = data.data;
+        });
+  }
 
   addSlide() {
     this.slides.push(488)

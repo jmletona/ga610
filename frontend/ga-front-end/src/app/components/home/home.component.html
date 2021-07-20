@@ -1,8 +1,9 @@
 <div class="row">
     <label>Select a country:
-        <select name="country" id="country" class="button">
-            <option *ngFor="let country of countries;" value={{country.id}}>{{country.name}}</option>
+        <select (change)="getSelectedCountry()" name="country" id="country" class="button">
+            <option *ngFor="let country of countries;" value={{country}}>{{country}}</option>
         </select>
+        <button class="button" type="button" name="button" (click)="searchServices($event)">Choose...</button>
     </label>
 </div>
 
@@ -22,7 +23,7 @@
                             class="left galleryicon" alt=""> Gallery</a>
                 </div>
                 <div class="inner">
-                    <a class="projectdetail" [routerLink]="['/service-detail/',service.serviceId]">+ Service details</a>
+                    <a class="projectdetail" [routerLink]="['/service-detail/',selectedCountry,'service',service.serviceId]">+ Service details</a>
                 </div>
             </div>
             <!-- image here -->

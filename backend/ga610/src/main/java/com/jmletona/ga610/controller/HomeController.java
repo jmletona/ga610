@@ -24,20 +24,4 @@ import java.util.List;
 @RestController
 @RequestMapping("/country")
 public class HomeController {
-
-    @Autowired
-    private IServiceRepository service;
-
-    @Autowired
-    private ICountryRepository countryService;
-
-    @GetMapping("/get/{country}")
-    public List<Service> home(@PathVariable("country") Integer country){
-        return service.onFetchServices(country);
-    }
-
-    @GetMapping("/all")
-    public List<Country> getAllCountries(){
-        return countryService.findAll();
-    }
 }
