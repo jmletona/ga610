@@ -194,7 +194,7 @@ public class PersonController {
                 success = true;
                 message = "Person was updated successfully";
 
-                /*for (VideoDTO v : personCrudDTO.getVideos()){
+                for (VideoDTO v : personCrudDTO.getVideos()){
                     Video video = new Video();
                     video.setIdVideo(v.getIdVideo());
                     video.setUrl(v.getUrl());
@@ -227,7 +227,7 @@ public class PersonController {
                     image.setUrl(i.getUrlImage());
                     image.setIdPerson(person.getIdPerson());
                     imageService.update(image);
-                }*/
+                }
             }
         }catch (Exception ex){
             ex.printStackTrace();
@@ -237,6 +237,7 @@ public class PersonController {
     }
 
     public Person updatePerson(Person person, PersonDTO personDTO){
+        person.setIdPerson(personDTO.getIdPerson());
         person.setActive(personDTO.getActive());
         person.setCompany(personDTO.getCompany());
         person.setDescription(personDTO.getDescription());
