@@ -3,13 +3,10 @@ package com.jmletona.ga610.controller;
 import com.jmletona.ga610.dto.*;
 import com.jmletona.ga610.item.ItemPerson;
 import com.jmletona.ga610.item.ItemPersonCrud;
-import com.jmletona.ga610.model.Person;
-import com.jmletona.ga610.model.Phone;
-import com.jmletona.ga610.model.SocialNetwork;
-import com.jmletona.ga610.model.Video;
+import com.jmletona.ga610.model.*;
 import com.jmletona.ga610.responses.ResponseApi;
 import com.jmletona.ga610.service.*;
-import com.jmletona.ga610.util.FileSearch;
+import com.jmletona.ga610.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +33,9 @@ public class PersonController {
 
     @Autowired
     private VideoService videoService;
+
+    @Autowired
+    private ImageService imageService;
 
     @Autowired
     private PersonServiceService personServiceService;
@@ -74,7 +74,7 @@ public class PersonController {
         itemPerson.setPhones(person.getPhoneList());
         itemPerson.setSocialNetworks(person.getSocialNetworkList());
         if (person.getCreated() != null) itemPerson.setCreated(person.getCreated().toString());
-        itemPerson.setGallery(FileSearch.getGallery("src/main/resources/persons/"+person.getIdPerson()));
+        itemPerson.setGallery(person.getImageList());
         return itemPerson;
     }
 
@@ -129,13 +129,12 @@ public class PersonController {
                     personServiceService.create(personServiceModel);
                 }
 
-                //Aquí se guardan las imagenes...
-                /*for (ImageDTO i : personCrudDTO.getImages()){
+                for (ImageDTO i : personCrudDTO.getGallery()){
                     Image image = new Image();
-                    image.setUrl(s.getServiceId());
+                    image.setUrl(i.getUrlImage());
                     image.setIdPerson(person.getIdPerson());
                     imageService.create(image);
-                }*/
+                }
 
                 itemPerson = showPerson(personService.findById(person.getIdPerson()), itemPerson);
                 success = true;
@@ -222,12 +221,12 @@ public class PersonController {
                     socialNetworkService.update(socialNetwork);
                 }
 
-                for (ImageDTO i : personCrudDTO.getImages()){
+                for (ImageDTO i : personCrudDTO.getGallery()){
                     Image image = new Image();
                     image.setIdImage(i.getIdImage());
-                    image.setUrl(i.getServiceId());
+                    image.setUrl(i.getUrlImage());
                     image.setIdPerson(person.getIdPerson());
-                    imageService.create(image);
+                    imageService.update(image);
                 }*/
             }
         }catch (Exception ex){
