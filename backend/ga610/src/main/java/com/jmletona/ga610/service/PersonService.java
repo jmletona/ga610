@@ -24,7 +24,7 @@ public class PersonService implements IPersonService{
         Person personTMP = findById(person.getIdPerson());
         personTMP.setActive(person.getActive());
         personTMP.setCompany(person.getCompany());
-        personTMP.setDescription(person.getCompany());
+        personTMP.setDescription(person.getDescription());
         personTMP.setName(person.getName());
         personTMP.setLastname(person.getLastname());
         personTMP.setAddress(person.getAddress());
