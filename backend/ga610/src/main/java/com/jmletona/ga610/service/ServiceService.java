@@ -1,7 +1,5 @@
 package com.jmletona.ga610.service;
 
-import com.jmletona.ga610.model.Campus;
-import com.jmletona.ga610.model.CampusUser;
 import com.jmletona.ga610.model.Service;
 import com.jmletona.ga610.repository.IServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +27,7 @@ public class ServiceService implements IServiceService {
     public Service update(Service serviceToUpdate) {
         Service service = findById(serviceToUpdate.getServiceId());
         service.setServiceName(serviceToUpdate.getServiceName());
-        service.setCreatedAt(serviceToUpdate.getCreatedAt());
-
+        service.setUrlImage(serviceToUpdate.getUrlImage());
         return serviceRepository.save(service);
     }
 

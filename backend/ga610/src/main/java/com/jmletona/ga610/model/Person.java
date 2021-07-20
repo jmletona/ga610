@@ -56,6 +56,10 @@ public class Person {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="id_person")
+    private List<Image> imageList;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_person")
     private List<SocialNetwork> socialNetworkList;
 
     @OneToMany(cascade = CascadeType.ALL)

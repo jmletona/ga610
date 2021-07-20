@@ -9,8 +9,7 @@ import java.time.LocalDate;
 @Setter
 public class ItemService implements IItem {
     private Integer serviceId;
-
     private String serviceName;
-
+    private String urlImage;
     private String createdAt;
 }
