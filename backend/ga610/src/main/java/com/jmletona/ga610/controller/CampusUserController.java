@@ -83,11 +83,11 @@ public class CampusUserController {
 
         campusUser.setFullName(campusUserDTO.getFullName());
         campusUser.setUserPassword(campusUserDTO.getUserPassword());
-        campusUser.setCreatedAt(campusUserDTO.getCreatedAt());
+       // campusUser.setCreatedAt(campusUserDTO.getCreatedAt());
        // campusUser.setCampusId(campusUser.getCampus().getCampusId());
-        campusUser.setCampus(null);
-        campusUser.setUserId(campusUser.getUserRole().getRoleId());
-        campusUser.setUserRole(null);
+       // campusUser.setCampus(null);
+        //campusUser.setUserId(campusUser.getUserRole().getRoleId());
+        //campusUser.setUserRole(null);
 
         campusUser = this.campusUserService.create(campusUser);
         return campusUser;
