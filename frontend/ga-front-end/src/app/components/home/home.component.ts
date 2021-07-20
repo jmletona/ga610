@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,5 +9,26 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   slideConfig = { slidesToShow: 4, dots: true, centerMode: true };
 
+<<<<<<< HEAD
   ngOnInit(): void {}
+=======
+  services:any[] = [];
+  countries:any[] = [];
+
+  constructor(private http:HttpClient) {
+    http.get("http://localhost:9090/country/get/1")
+        .subscribe((data:any) => {
+          this.services = data;
+        });
+
+    http.get("http://localhost:9090/country/all")
+        .subscribe((data:any) => {
+          this.countries = data;
+        });
+   }
+
+  ngOnInit(): void {
+  }
+
+>>>>>>> origin/josue
 }
