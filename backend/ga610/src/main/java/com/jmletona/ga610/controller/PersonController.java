@@ -130,8 +130,14 @@ public class PersonController {
                 }
 
                 //Aquí se guardan las imagenes...
+                /*for (ImageDTO i : personCrudDTO.getImages()){
+                    Image image = new Image();
+                    image.setUrl(s.getServiceId());
+                    image.setIdPerson(person.getIdPerson());
+                    imageService.create(image);
+                }*/
 
-                itemPerson = showPerson(person, itemPerson);
+                itemPerson = showPerson(personService.findById(person.getIdPerson()), itemPerson);
                 success = true;
                 message = "Person was created successfully";
             }
@@ -177,17 +183,52 @@ public class PersonController {
     }
 
     @PutMapping("/update/{idPerson}")
-    public ResponseApi<ItemPerson> update(@RequestBody PersonDTO personDTO) {
+    public ResponseApi<ItemPerson> update(@RequestBody PersonCrudDTO personCrudDTO) {
         boolean success = false;
         String message = "Error updating Person";
         Person person = new Person();
         ItemPerson itemPerson = new ItemPerson();
         try{
-            person = updatePerson(person, personDTO);
+            person = updatePerson(person, personCrudDTO.getPerson());
             if(person!=null){
                 itemPerson = showPerson(person, itemPerson);
                 success = true;
                 message = "Person was updated successfully";
+
+                /*for (VideoDTO v : personCrudDTO.getVideos()){
+                    Video video = new Video();
+                    video.setIdVideo(v.getIdVideo());
+                    video.setUrl(v.getUrl());
+                    video.setIdPerson(person.getIdPerson());
+                    videoService.update(video);
+                }
+
+                for (PhoneDTO p : personCrudDTO.getPhones()){
+                    Phone phone = new Phone();
+                    phone.setIdPhone(p.getIdPhone());
+                    phone.setAreaCode(p.getAreaCode());
+                    phone.setNumber(p.getNumber());
+                    phone.setType(p.getPhoneType());
+                    phone.setIdPerson(person.getIdPerson());
+                    phoneService.update(phone);
+                }
+
+                for (SocialNetworkDTO sn : personCrudDTO.getSocialNetworks()){
+                    SocialNetwork socialNetwork = new SocialNetwork();
+                    socialNetwork.setIdSocialNetwork(sn.getIdSocialNetwork());
+                    socialNetwork.setIdPerson(person.getIdPerson());
+                    socialNetwork.setUrl(sn.getUrl());
+                    socialNetwork.setType(sn.getType());
+                    socialNetworkService.update(socialNetwork);
+                }
+
+                for (ImageDTO i : personCrudDTO.getImages()){
+                    Image image = new Image();
+                    image.setIdImage(i.getIdImage());
+                    image.setUrl(i.getServiceId());
+                    image.setIdPerson(person.getIdPerson());
+                    imageService.create(image);
+                }*/
             }
         }catch (Exception ex){
             ex.printStackTrace();
@@ -195,6 +236,7 @@ public class PersonController {
         }
         return new ResponseApi<>(success, message, itemPerson);
     }
+
     public Person updatePerson(Person person, PersonDTO personDTO){
         person.setActive(personDTO.getActive());
         person.setCompany(personDTO.getCompany());
