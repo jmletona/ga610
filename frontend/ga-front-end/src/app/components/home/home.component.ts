@@ -9,9 +9,6 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   slideConfig = { slidesToShow: 4, dots: true, centerMode: true };
 
-<<<<<<< HEAD
-  ngOnInit(): void {}
-=======
   services:any[] = [];
   countries:any[] = [];
 
@@ -30,5 +27,4 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
->>>>>>> origin/josue
 }
