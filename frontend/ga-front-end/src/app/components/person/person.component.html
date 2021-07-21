@@ -1,0 +1,39 @@
+<div class="row">
+  <form #person="ngForm" (ngSubmit)="sendForm()">
+      <fieldset>
+        <legend>New person</legend>
+        <div class="row">
+          <div class="six columns">
+            <label>Name</label>
+            <input type="text" class="smoothborder" name="name" [(ngModel)]="personModel.name"/>
+          </div>
+          <div class="six columns">
+            <label>Last Name</label>
+            <input type="text" class="smoothborder" name="lastname" [(ngModel)]="personModel.lastname"/>
+          </div>
+          <div class="six columns">
+            <label>Description</label>
+            <input type="text" class="smoothborder" name="description" [(ngModel)]="personModel.description"/>
+          </div>
+          <div class="six columns">
+            <label>Company</label>
+            <input type="text" class="smoothborder" name="company" [(ngModel)]="personModel.company"/>
+          </div>
+          <div class="six columns">
+            <label>Address</label>
+            <input type="text" placeholder="Street (e.g. 123 Amazing St.)" name="address" [(ngModel)]="personModel.address"/>
+          </div>
+          <div class="six columns">
+            <label>Campus</label>
+            <select name="campus" [(ngModel)]="personModel.campus">
+              <option value="0">Seleccione...</option>
+              <option value="1">Campus 1</option>
+            </select>
+          </div>
+
+          <hr>
+          <button class="button" type="submit" name="button">Send</button>
+        </div>
+      </fieldset>
+    </form>
+</div>

@@ -1,0 +1,41 @@
+<div class="row">
+    <p>People registered</p>
+</div>
+
+<div class="row">
+  <table>
+  			<thead>
+  			<tr>
+  				<th>
+  					Name
+  				</th>
+  				<th>
+  					Last name
+  				</th>
+  				<th>
+  					Company
+  				</th>
+  				<th>
+  					Address
+				  </th>
+				  <th>
+					Actions
+				</th>
+  			</tr>
+  			</thead>
+  			<tbody>
+  			<tr *ngFor="let person of people;">
+				  <td>{{person.name}}</td>
+				  <td>{{person.lastname}}</td>
+				  <td>{{person.company}}</td>
+				  <td>{{person.address}}</td>
+				  <td>
+					<a [routerLink]="['/person-view/',person.idPerson]" class="button">View</a>
+					<a class="button">Edit</a>
+					<a class="button">Delete</a>
+				  </td>
+  			</tr>
+  			</tbody>
+  			</table>
+
+</div>
