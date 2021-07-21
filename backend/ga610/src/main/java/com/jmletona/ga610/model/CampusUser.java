@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "campus_user")
+//@Table(name = "campus_user")
 @Data
 public class CampusUser {
 
